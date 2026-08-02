@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 
-
+print("Running UPDATED train_model.py")
 # Create sample property data
 data = {
     "area": [800,1000,1200,1500,1800,2200,2500],
