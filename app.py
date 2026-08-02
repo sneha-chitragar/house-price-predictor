@@ -1,7 +1,6 @@
 import streamlit as st
 import joblib
 import numpy as np
-
 st.title("App is running 🚀")
 
 st.set_page_config(page_title="Property Price Predictor", page_icon="🏠", layout="centered")
