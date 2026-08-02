@@ -1,0 +1,22 @@
+# Property Price Prediction Using Machine Learning
+
+## Project Overview
+This project predicts property prices using Machine Learning.
+
+## Technology Used
+- Python
+- Pandas
+- Scikit-learn
+- Random Forest Regression
+- Streamlit
+
+## Features
+- Area
+- Bedrooms
+- Location Score
+
+## Model
+Random Forest Regressor
+
+## Deployment
+Streamlit Cloud
