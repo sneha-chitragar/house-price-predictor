@@ -3,7 +3,6 @@ import pandas as pd
 import joblib
 
 
-
 # ---------------------------
 # PAGE CONFIG
 # ---------------------------
@@ -15,10 +14,7 @@ st.set_page_config(
 )
 
 
-st.title(
-    "🏠 Property Price Predictor"
-)
-
+st.title("🏠 Property Price Predictor")
 
 
 # ---------------------------
@@ -31,21 +27,14 @@ try:
         "model.pkl"
     )
 
-
-    metrics = joblib.load(
-        "metrics.pkl"
-    )
-
-
     st.success(
         "✅ Model loaded successfully"
     )
 
-
 except Exception as e:
 
     st.error(
-        f"Model loading failed: {e}"
+        f"❌ Model loading failed: {e}"
     )
 
     st.stop()
@@ -53,31 +42,17 @@ except Exception as e:
 
 
 # ---------------------------
-# SIDEBAR
+# MODEL DETAILS
 # ---------------------------
 
 st.sidebar.header(
-    "📊 Model Performance"
+    "🤖 Model Information"
 )
 
 
-st.sidebar.metric(
-    "R2 Score",
-    round(metrics["r2"],2)
+st.sidebar.write(
+    f"Model: {type(model).__name__}"
 )
-
-
-st.sidebar.metric(
-    "MAE",
-    f"₹ {metrics['mae']:,.0f}"
-)
-
-
-st.sidebar.metric(
-    "RMSE",
-    f"₹ {metrics['rmse']:,.0f}"
-)
-
 
 
 st.sidebar.write(
@@ -101,7 +76,7 @@ st.header(
 
 
 
-col1,col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
 
 
@@ -111,6 +86,7 @@ with col1:
     area = st.number_input(
         "📏 Area (sq ft)",
         min_value=0,
+        value=0,
         step=100
     )
 
@@ -118,6 +94,7 @@ with col1:
     bedrooms = st.number_input(
         "🛏 Bedrooms",
         min_value=0,
+        value=0,
         step=1
     )
 
@@ -125,6 +102,7 @@ with col1:
     bathrooms = st.number_input(
         "🚿 Bathrooms",
         min_value=0,
+        value=0,
         step=1
     )
 
@@ -134,14 +112,15 @@ with col2:
 
 
     age = st.number_input(
-        "🏚 Property Age",
+        "🏚 Property Age (Years)",
         min_value=0,
+        value=0,
         step=1
     )
 
 
     parking = st.selectbox(
-        "🚗 Parking",
+        "🚗 Parking Available",
         [
             "No",
             "Yes"
@@ -152,7 +131,6 @@ with col2:
 
 property_type = st.selectbox(
     "🏢 Property Type",
-
     [
         "Apartment",
         "Villa",
@@ -164,7 +142,6 @@ property_type = st.selectbox(
 
 location = st.selectbox(
     "📍 Location",
-
     [
         "Electronic City",
         "Whitefield",
@@ -180,35 +157,29 @@ location = st.selectbox(
 # ENCODING
 # ---------------------------
 
-
 property_mapping = {
 
-    "Apartment":0,
+    "Apartment": 0,
+    "Villa": 1,
+    "Independent House": 2
 
-    "Villa":1,
-
-    "Independent House":2
 }
-
 
 
 location_mapping = {
 
-    "Electronic City":0,
+    "Electronic City": 0,
+    "Whitefield": 1,
+    "HSR Layout": 2,
+    "Marathahalli": 3,
+    "Koramangala": 4
 
-    "Whitefield":1,
-
-    "HSR Layout":2,
-
-    "Marathahalli":3,
-
-    "Koramangala":4
 }
 
 
 
 # ---------------------------
-# PREDICT
+# PREDICTION
 # ---------------------------
 
 if st.button(
@@ -216,86 +187,188 @@ if st.button(
 ):
 
 
-    if area <=0:
+    # Validation
+
+    if area <= 0:
 
         st.error(
-            "Area must be greater than zero"
+            "⚠️ Area must be greater than 0"
         )
 
 
-    elif bedrooms <=0:
+    elif bedrooms <= 0:
 
         st.error(
-            "Bedrooms must be greater than zero"
+            "⚠️ Bedrooms must be greater than 0"
+        )
+
+
+    elif bathrooms <= 0:
+
+        st.error(
+            "⚠️ Bathrooms must be greater than 0"
         )
 
 
     else:
 
 
-        input_data = pd.DataFrame({
+        try:
 
-            "area":[area],
 
-            "bedrooms":[bedrooms],
+            input_data = pd.DataFrame(
 
-            "bathrooms":[bathrooms],
+                {
 
-            "parking":[
-                1 if parking=="Yes" else 0
-            ],
+                    "area":[area],
 
-            "age":[age],
+                    "bedrooms":[bedrooms],
 
-            "property_type":[
-                property_mapping[property_type]
-            ],
+                    "bathrooms":[bathrooms],
 
-            "location":[
-                location_mapping[location]
+                    "parking":[
+                        1 if parking=="Yes" else 0
+                    ],
+
+                    "age":[age],
+
+                    "property_type":[
+                        property_mapping[property_type]
+                    ],
+
+                    "location":[
+                        location_mapping[location]
+                    ]
+
+                }
+
+            )
+
+
+
+            # Match model training columns
+
+            input_data = input_data[
+                model.feature_names_in_
             ]
 
-        })
+
+
+            prediction = model.predict(
+                input_data
+            )[0]
 
 
 
-        # Match training columns
+            if prediction <= 0:
 
-        input_data = input_data[
-            model.feature_names_in_
-        ]
-
-
-
-        prediction = model.predict(
-            input_data
-        )[0]
+                st.warning(
+                    "⚠️ Invalid prediction generated"
+                )
 
 
+            else:
 
-        st.success(
-            f"💰 Estimated Price: ₹ {prediction:,.0f}"
-        )
+                st.success(
+                    f"💰 Estimated Price: ₹ {prediction:,.0f}"
+                )
 
 
 
-        st.info(
-            f"""
+                # Price Range
+
+                lower = prediction * 0.90
+
+                upper = prediction * 1.10
+
+
+                st.info(
+                    f"""
 📊 Expected Price Range
 
-₹ {prediction*0.9:,.0f}
+Minimum:
+₹ {lower:,.0f}
 
-to
 
-₹ {prediction*1.1:,.0f}
+Maximum:
+₹ {upper:,.0f}
 """
-        )
+                )
+
+
+
+                # Property Summary
+
+                st.subheader(
+                    "🏠 Property Summary"
+                )
+
+
+                summary = pd.DataFrame(
+                    {
+
+                        "Feature":[
+
+                            "Area",
+
+                            "Bedrooms",
+
+                            "Bathrooms",
+
+                            "Parking",
+
+                            "Age",
+
+                            "Property Type",
+
+                            "Location"
+
+                        ],
+
+
+                        "Value":[
+
+                            area,
+
+                            bedrooms,
+
+                            bathrooms,
+
+                            parking,
+
+                            age,
+
+                            property_type,
+
+                            location
+
+                        ]
+
+                    }
+
+                )
+
+
+                st.table(
+                    summary
+                )
+
+
+
+        except Exception as e:
+
+            st.error(
+                f"Prediction error: {e}"
+            )
 
 
 
 # ---------------------------
-# GRAPH
+# FEATURE IMPORTANCE GRAPH
 # ---------------------------
+
+
+st.markdown("---")
 
 
 st.subheader(
@@ -304,21 +377,49 @@ st.subheader(
 
 
 
-importance = pd.DataFrame({
-
-    "Feature":
-    model.feature_names_in_,
-
-
-    "Importance":
-    model.feature_importances_
-
-})
+if hasattr(
+    model,
+    "feature_importances_"
+):
 
 
+    importance = pd.DataFrame(
 
-st.bar_chart(
-    importance.set_index(
-        "Feature"
+        {
+
+            "Feature":
+            model.feature_names_in_,
+
+
+            "Importance":
+            model.feature_importances_
+
+        }
+
     )
+
+
+    st.bar_chart(
+        importance.set_index(
+            "Feature"
+        )
+    )
+
+
+else:
+
+    st.info(
+        "Feature importance not available"
+    )
+
+
+
+# ---------------------------
+# FOOTER
+# ---------------------------
+
+st.markdown("---")
+
+st.caption(
+    "Built using Python + Machine Learning + Streamlit 🚀"
 )
