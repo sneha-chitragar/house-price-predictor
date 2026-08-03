@@ -1,9 +1,10 @@
 import pandas as pd
 import joblib
 
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+
 from sklearn.metrics import (
     r2_score,
     mean_absolute_error,
@@ -11,65 +12,54 @@ from sklearn.metrics import (
 )
 
 
-# ---------------------------
-# DATASET
-# ---------------------------
+# -------------------------
+# DATA
+# -------------------------
 
 data = {
 
-    "area": [
-        800,1000,1200,1500,1800,2200,
-        2500,3000
-    ],
+"area":[800,1000,1200,1500,1800,2200,2500,3000],
 
-    "bedrooms":[
-        1,2,2,3,3,4,4,5
-    ],
+"bedrooms":[1,2,2,3,3,4,4,5],
 
-    "bathrooms":[
-        1,2,2,3,3,4,4,5
-    ],
+"bathrooms":[1,2,2,3,3,4,4,5],
 
-    "parking":[
-        0,1,1,1,2,2,2,3
-    ],
+"parking":[0,1,1,1,2,2,2,3],
 
-    "age":[
-        20,15,10,8,5,3,2,1
-    ],
+"age":[20,15,10,8,5,3,2,1],
 
-    "property_type":[
-        "Apartment",
-        "Apartment",
-        "Villa",
-        "Apartment",
-        "Villa",
-        "Independent House",
-        "Villa",
-        "Independent House"
-    ],
+"property_type":[
+"Apartment",
+"Apartment",
+"Villa",
+"Apartment",
+"Villa",
+"Independent House",
+"Villa",
+"Independent House"
+],
 
-    "location":[
-        "Electronic City",
-        "Whitefield",
-        "HSR Layout",
-        "Marathahalli",
-        "Koramangala",
-        "Whitefield",
-        "HSR Layout",
-        "Koramangala"
-    ],
+"location":[
+"Electronic City",
+"Whitefield",
+"HSR Layout",
+"Marathahalli",
+"Koramangala",
+"Whitefield",
+"HSR Layout",
+"Koramangala"
+],
 
-    "price":[
-        4000000,
-        5500000,
-        7500000,
-        9500000,
-        12000000,
-        15000000,
-        18000000,
-        25000000
-    ]
+"price":[
+4000000,
+5500000,
+7500000,
+9500000,
+12000000,
+15000000,
+18000000,
+25000000
+]
 
 }
 
@@ -78,44 +68,45 @@ df=pd.DataFrame(data)
 
 
 
-# ---------------------------
-# ENCODING CATEGORICAL DATA
-# ---------------------------
+# -------------------------
+# ENCODING
+# -------------------------
 
-encoder_property = LabelEncoder()
+property_encoder=LabelEncoder()
 
-encoder_location = LabelEncoder()
+location_encoder=LabelEncoder()
 
 
-df["property_type"] = encoder_property.fit_transform(
+
+df["property_type"]=property_encoder.fit_transform(
     df["property_type"]
 )
 
 
-df["location"] = encoder_location.fit_transform(
+df["location"]=location_encoder.fit_transform(
     df["location"]
 )
 
 
 
-# Save encoders
+# SAVE ENCODERS
 
 joblib.dump(
-    encoder_property,
+    property_encoder,
     "property_encoder.pkl"
 )
 
 
 joblib.dump(
-    encoder_location,
+    location_encoder,
     "location_encoder.pkl"
 )
 
 
 
-# ---------------------------
-# FEATURES
-# ---------------------------
+# -------------------------
+# MODEL
+# -------------------------
 
 X=df.drop(
     "price",
@@ -126,10 +117,6 @@ X=df.drop(
 y=df["price"]
 
 
-
-# ---------------------------
-# TRAIN MODEL
-# ---------------------------
 
 X_train,X_test,y_train,y_test=train_test_split(
     X,
@@ -153,9 +140,9 @@ model.fit(
 
 
 
-# ---------------------------
-# MODEL EVALUATION
-# ---------------------------
+# -------------------------
+# METRICS
+# -------------------------
 
 prediction=model.predict(
     X_test
@@ -164,14 +151,17 @@ prediction=model.predict(
 
 metrics={
 
-"r2":
-r2_score(y_test,prediction),
+"r2":r2_score(
+    y_test,
+    prediction
+),
 
-"mae":
-mean_absolute_error(y_test,prediction),
+"mae":mean_absolute_error(
+    y_test,
+    prediction
+),
 
-"rmse":
-mean_squared_error(
+"rmse":mean_squared_error(
     y_test,
     prediction,
     squared=False
@@ -181,10 +171,7 @@ mean_squared_error(
 
 
 
-# ---------------------------
-# SAVE FILES
-# ---------------------------
-
+# SAVE MODEL
 
 joblib.dump(
     model,
@@ -199,5 +186,4 @@ joblib.dump(
 
 
 
-print("Model training completed")
-print(metrics)
+print("Training completed")
