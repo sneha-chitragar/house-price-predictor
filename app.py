@@ -25,7 +25,15 @@ try:
 
     model = joblib.load("model.pkl")
 
-    st.success("✅ Model loaded successfully")
+    model_name = type(model).__name__
+
+    st.success(
+        "✅ Model loaded successfully"
+    )
+
+    st.info(
+        f"🤖 Model Used: {model_name}"
+    )
 
 
 except Exception as e:
@@ -39,7 +47,7 @@ except Exception as e:
 
 
 # ---------------------------------
-# MODEL INFORMATION
+# SIDEBAR MODEL DETAILS
 # ---------------------------------
 
 st.sidebar.header(
@@ -48,16 +56,12 @@ st.sidebar.header(
 
 
 st.sidebar.write(
-    "Model:"
-)
-
-st.sidebar.write(
-    type(model).__name__
+    f"Model Name: {model_name}"
 )
 
 
 st.sidebar.write(
-    "Features:"
+    "Input Features:"
 )
 
 
@@ -68,7 +72,7 @@ st.sidebar.write(
 
 
 # ---------------------------------
-# USER INPUT
+# INPUT SECTION
 # ---------------------------------
 
 st.header(
@@ -159,7 +163,7 @@ location = st.selectbox(
 
 
 # ---------------------------------
-# ENCODING
+# ENCODING VALUES
 # ---------------------------------
 
 property_mapping = {
@@ -230,23 +234,23 @@ if st.button(
 
                 {
 
-                    "area": [area],
+                    "area":[area],
 
-                    "bedrooms": [bedrooms],
+                    "bedrooms":[bedrooms],
 
-                    "bathrooms": [bathrooms],
+                    "bathrooms":[bathrooms],
 
-                    "parking": [
+                    "parking":[
                         1 if parking == "Yes" else 0
                     ],
 
-                    "age": [age],
+                    "age":[age],
 
-                    "property_type": [
+                    "property_type":[
                         property_mapping[property_type]
                     ],
 
-                    "location_score": [
+                    "location_score":[
                         location_mapping[location]
                     ]
 
@@ -255,11 +259,12 @@ if st.button(
             )
 
 
-            # Match model columns
+            # Arrange columns same as training
 
             input_data = input_data[
                 model.feature_names_in_
             ]
+
 
 
             prediction = model.predict(
@@ -271,7 +276,7 @@ if st.button(
             if prediction <= 0:
 
                 st.warning(
-                    "⚠️ Invalid prediction"
+                    "⚠️ Invalid prediction generated"
                 )
 
 
@@ -279,8 +284,9 @@ if st.button(
 
 
                 st.success(
-                    f"💰 Estimated Property Price: ₹ {prediction:,.0f}"
+                    f"💰 Estimated Price: ₹ {prediction:,.0f}"
                 )
+
 
 
                 # Price Range
@@ -288,7 +294,7 @@ if st.button(
                 st.info(
 
                     f"""
-📊 Expected Market Range
+📊 Expected Price Range
 
 Minimum:
 ₹ {prediction*0.90:,.0f}
@@ -297,7 +303,6 @@ Minimum:
 Maximum:
 ₹ {prediction*1.10:,.0f}
 """
-
                 )
 
 
@@ -368,7 +373,7 @@ Maximum:
 
 
 # ---------------------------------
-# GRAPH 1 : FEATURE IMPORTANCE
+# GRAPH 1 - FEATURE IMPORTANCE
 # ---------------------------------
 
 st.markdown("---")
@@ -386,7 +391,7 @@ if hasattr(
 ):
 
 
-    feature_data = pd.DataFrame(
+    importance_df = pd.DataFrame(
 
         {
 
@@ -404,7 +409,7 @@ if hasattr(
 
     st.bar_chart(
 
-        feature_data.set_index(
+        importance_df.set_index(
             "Feature"
         )
 
@@ -413,11 +418,11 @@ if hasattr(
 
 
 # ---------------------------------
-# GRAPH 2 : FEATURE CONTRIBUTION %
+# GRAPH 2 - FEATURE CONTRIBUTION
 # ---------------------------------
 
 st.subheader(
-    "📊 Feature Contribution Percentage"
+    "📊 Feature Contribution (%)"
 )
 
 
@@ -428,7 +433,7 @@ if hasattr(
 ):
 
 
-    contribution = pd.DataFrame(
+    contribution_df = pd.DataFrame(
 
         {
 
@@ -436,7 +441,7 @@ if hasattr(
             model.feature_names_in_,
 
 
-            "Percentage":
+            "Contribution":
             model.feature_importances_ * 100
 
         }
@@ -446,7 +451,7 @@ if hasattr(
 
     st.line_chart(
 
-        contribution.set_index(
+        contribution_df.set_index(
             "Feature"
         )
 
@@ -462,5 +467,5 @@ st.markdown("---")
 
 
 st.caption(
-    "Built with Python + Machine Learning + Streamlit 🚀"
+    "Built using Python + Machine Learning + Streamlit 🚀"
 )
