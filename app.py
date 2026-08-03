@@ -1,244 +1,227 @@
 import streamlit as st
-import joblib
 import pandas as pd
+import joblib
 
-
-# Page config
 
 st.set_page_config(
     page_title="Property Price Predictor",
-    page_icon="🏠",
-    layout="centered"
+    page_icon="🏠"
 )
 
 
-st.title("🏠 Property Price Predictor")
-
-
-# Load model
-
-try:
-
-    model = joblib.load(
-        "model.pkl"
-    )
-
-    st.success(
-        "✅ Model Loaded Successfully"
-    )
-
-
-except Exception as e:
-
-    st.error(e)
-    st.stop()
-
-
-
-# Sidebar
-
-st.sidebar.header(
-    "🤖 Model Information"
-)
-
-
-st.sidebar.write(
-    f"""
-Model:
-
-{type(model).__name__}
-
-
-Features:
-
-{list(model.feature_names_in_)}
-"""
+st.title(
+    "🏠 Property Price Predictor"
 )
 
 
 
-# User Input
+# Load files
 
-st.markdown(
-    "### 📋 Enter Property Details"
+model=joblib.load(
+    "model.pkl"
 )
 
 
-col1, col2 = st.columns(2)
+property_encoder=joblib.load(
+    "property_encoder.pkl"
+)
+
+
+location_encoder=joblib.load(
+    "location_encoder.pkl"
+)
+
+
+
+# ---------------------------
+# INPUTS
+# ---------------------------
+
+st.header(
+    "📋 Property Details"
+)
+
+
+
+col1,col2=st.columns(2)
+
 
 
 with col1:
 
-    area = st.number_input(
-        "📏 Area (sq ft)",
-        min_value=0,
-        value=0,
-        step=100
+    area=st.number_input(
+        "Area (sq ft)",
+        min_value=0
     )
+
+
+    bedrooms=st.number_input(
+        "Bedrooms",
+        min_value=0
+    )
+
+
+    bathrooms=st.number_input(
+        "Bathrooms",
+        min_value=0
+    )
+
 
 
 with col2:
 
-    bedrooms = st.number_input(
-        "🛏 Number of Rooms",
-        min_value=0,
-        value=0,
-        step=1
+    age=st.number_input(
+        "Property Age",
+        min_value=0
+    )
+
+
+    parking=st.selectbox(
+        "Parking Available",
+        ["No","Yes"]
     )
 
 
 
-location = st.selectbox(
-    "📍 Location Score",
-    [1,2,3,4,5],
-    index=2
+property_type=st.selectbox(
+    "Property Type",
+    [
+        "Apartment",
+        "Villa",
+        "Independent House"
+    ]
 )
 
 
 
-# Prediction
+location=st.selectbox(
+    "Location",
+    [
+        "Electronic City",
+        "Whitefield",
+        "HSR Layout",
+        "Marathahalli",
+        "Koramangala"
+    ]
+)
+
+
+
+# ---------------------------
+# PREDICTION
+# ---------------------------
+
 
 if st.button(
     "🚀 Predict Price"
 ):
 
 
-    if area <= 0:
+    if area<=0 or bedrooms<=0:
 
         st.error(
-            "⚠️ Area must be greater than 0"
-        )
-
-
-    elif bedrooms <= 0:
-
-        st.error(
-            "⚠️ Rooms must be greater than 0"
+            "Enter valid Area and Bedrooms"
         )
 
 
     else:
 
 
-        input_data = pd.DataFrame(
-            [
-                [
-                    area,
-                    bedrooms,
-                    location
-                ]
-            ],
+        input_df=pd.DataFrame(
 
-            columns=model.feature_names_in_
+        [[
+            area,
+            bedrooms,
+            bathrooms,
+            1 if parking=="Yes" else 0,
+            age,
+
+            property_encoder.transform(
+                [property_type]
+            )[0],
+
+            location_encoder.transform(
+                [location]
+            )[0]
+
+        ]],
+
+        columns=model.feature_names_in_
+
         )
 
 
-        prediction = model.predict(
-            input_data
+
+        result=model.predict(
+            input_df
         )[0]
 
 
+
         st.success(
-            f"💰 Estimated Price: ₹ {prediction:,.0f}"
+            f"💰 Estimated Price ₹ {result:,.0f}"
         )
+
 
 
         # Price range
 
-        lower = prediction * 0.9
-
-        upper = prediction * 1.1
-
-
         st.info(
             f"""
-📊 Expected Price Range
+Expected Range:
 
-₹ {lower:,.0f}
+₹ {result*0.9:,.0f}
 
-to
-
-₹ {upper:,.0f}
+-
+₹ {result*1.1:,.0f}
 """
         )
 
 
 
-        # Summary
-
-        st.subheader(
-            "🏡 Property Summary"
-        )
+# ---------------------------
+# GRAPHS
+# ---------------------------
 
 
-        summary = pd.DataFrame(
-            {
-                "Feature":
-                [
-                    "Area",
-                    "Rooms",
-                    "Location"
-                ],
-
-                "Value":
-                [
-                    area,
-                    bedrooms,
-                    location
-                ]
-            }
-        )
+st.subheader(
+    "📊 Feature Importance"
+)
 
 
-        st.table(
-            summary
-        )
+importance=pd.DataFrame({
+
+"Feature":
+model.feature_names_in_,
+
+"Importance":
+model.feature_importances_
+
+})
+
+
+st.bar_chart(
+    importance.set_index(
+        "Feature"
+    )
+)
 
 
 
-        # Feature importance
-
-        if hasattr(
-            model,
-            "feature_importances_"
-        ):
+st.subheader(
+    "📈 Feature Contribution %"
+)
 
 
-            st.subheader(
-                "📊 Feature Importance"
-            )
+importance["Percentage"]=(
+importance["Importance"]*100
+)
 
 
-            chart_data = pd.DataFrame(
-                {
-                    "Feature":
-                    model.feature_names_in_,
-
-                    "Importance":
-                    model.feature_importances_
-                }
-            )
-
-
-            st.bar_chart(
-                chart_data.set_index(
-                    "Feature"
-                )
-            )
-
-
-
-# Reset button
-
-if st.button(
-    "🔄 Reset"
-):
-
-    st.rerun()
-
-
-st.markdown("---")
-
-st.caption(
-    "Built using Python + Machine Learning + Streamlit 🚀"
+st.line_chart(
+importance.set_index(
+    "Feature"
+)[
+"Percentage"
+]
 )
