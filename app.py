@@ -43,7 +43,7 @@ try:
     st.sidebar.metric("RMSE", f"₹ {metrics['rmse']:,.0f}")
 
 except Exception:
-    st.sidebar.warning("Metrics file not available")
+    st.sidebar.warning("⚠️ Metrics file not available")
 
 
 # ==============================
@@ -51,9 +51,24 @@ except Exception:
 # ==============================
 st.markdown("### 📋 Enter Property Details")
 
-area = st.number_input("📏 Area (sq ft)", min_value=500, value=1000)
-bedrooms = st.number_input("🛏 Bedrooms", min_value=1, value=2)
-location = st.slider("📍 Location Score", 1, 5, 3)
+area = st.number_input(
+    "📏 Area (sq ft)",
+    min_value=500,   # prevents 0
+    value=1000
+)
+
+bedrooms = st.number_input(
+    "🛏 Bedrooms",
+    min_value=1,     # prevents 0
+    value=2
+)
+
+location = st.slider(
+    "📍 Location Score",
+    1,
+    5,
+    3
+)
 
 
 # ==============================
@@ -61,15 +76,21 @@ location = st.slider("📍 Location Score", 1, 5, 3)
 # ==============================
 if st.button("🚀 Predict Price"):
 
+    # Input validation
     if area <= 0 or bedrooms <= 0:
-        st.error("⚠️ Enter valid inputs")
+        st.error("⚠️ Area and Bedrooms must be greater than 0")
+
+    elif location < 1 or location > 5:
+        st.error("⚠️ Location must be between 1 and 5")
 
     else:
         with st.spinner("Predicting..."):
-            # ✅ FIX: Use array instead of DataFrame
+            # Use array (fixes sklearn error)
             prediction = model.predict([[area, bedrooms, location]])
 
-        st.success(f"💰 Estimated Price: ₹ {prediction[0]:,.0f}")
+        st.success(
+            f"💰 Estimated Price: ₹ {prediction[0]:,.0f}"
+        )
 
 
 # ==============================
@@ -85,7 +106,9 @@ if hasattr(model, "feature_importances_"):
         "Importance": model.feature_importances_
     })
 
-    st.bar_chart(importance.set_index("Feature"))
+    st.bar_chart(
+        importance.set_index("Feature")
+    )
 
 
 # ==============================
