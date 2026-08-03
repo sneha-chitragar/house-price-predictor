@@ -1,11 +1,12 @@
 import streamlit as st
-import joblib
 import pandas as pd
+import joblib
 
 
-# -------------------------
+
+# ---------------------------
 # PAGE CONFIG
-# -------------------------
+# ---------------------------
 
 st.set_page_config(
     page_title="Property Price Predictor",
@@ -14,18 +15,27 @@ st.set_page_config(
 )
 
 
-st.title("🏠 Property Price Predictor")
+st.title(
+    "🏠 Property Price Predictor"
+)
 
 
-# -------------------------
+
+# ---------------------------
 # LOAD MODEL
-# -------------------------
+# ---------------------------
 
 try:
 
     model = joblib.load(
         "model.pkl"
     )
+
+
+    metrics = joblib.load(
+        "metrics.pkl"
+    )
+
 
     st.success(
         "✅ Model loaded successfully"
@@ -42,59 +52,61 @@ except Exception as e:
 
 
 
-# -------------------------
-# LOAD METRICS
-# -------------------------
+# ---------------------------
+# SIDEBAR
+# ---------------------------
 
-try:
-
-    metrics = joblib.load(
-        "metrics.pkl"
-    )
+st.sidebar.header(
+    "📊 Model Performance"
+)
 
 
-    st.sidebar.header(
-        "📊 Model Performance"
-    )
+st.sidebar.metric(
+    "R2 Score",
+    round(metrics["r2"],2)
+)
 
 
-    st.sidebar.metric(
-        "R2 Score",
-        round(metrics["r2"],2)
-    )
+st.sidebar.metric(
+    "MAE",
+    f"₹ {metrics['mae']:,.0f}"
+)
 
 
-    st.sidebar.metric(
-        "MAE",
-        f"₹ {metrics['mae']:,.0f}"
-    )
-
-
-    st.sidebar.metric(
-        "RMSE",
-        f"₹ {metrics['rmse']:,.0f}"
-    )
-
-
-except:
-
-    pass
+st.sidebar.metric(
+    "RMSE",
+    f"₹ {metrics['rmse']:,.0f}"
+)
 
 
 
-# -------------------------
+st.sidebar.write(
+    "Features:"
+)
+
+
+st.sidebar.write(
+    list(model.feature_names_in_)
+)
+
+
+
+# ---------------------------
 # INPUT SECTION
-# -------------------------
+# ---------------------------
 
 st.header(
-    "🏠 Enter Property Details"
+    "🏡 Enter Property Details"
 )
+
 
 
 col1,col2 = st.columns(2)
 
 
+
 with col1:
+
 
     area = st.number_input(
         "📏 Area (sq ft)",
@@ -117,7 +129,9 @@ with col1:
     )
 
 
+
 with col2:
+
 
     age = st.number_input(
         "🏚 Property Age",
@@ -138,6 +152,7 @@ with col2:
 
 property_type = st.selectbox(
     "🏢 Property Type",
+
     [
         "Apartment",
         "Villa",
@@ -149,6 +164,7 @@ property_type = st.selectbox(
 
 location = st.selectbox(
     "📍 Location",
+
     [
         "Electronic City",
         "Whitefield",
@@ -160,16 +176,18 @@ location = st.selectbox(
 
 
 
-# -------------------------
+# ---------------------------
 # ENCODING
-# -------------------------
+# ---------------------------
+
 
 property_mapping = {
 
     "Apartment":0,
-    "Villa":1,
-    "Independent House":2
 
+    "Villa":1,
+
+    "Independent House":2
 }
 
 
@@ -177,18 +195,21 @@ property_mapping = {
 location_mapping = {
 
     "Electronic City":0,
-    "Whitefield":1,
-    "HSR Layout":2,
-    "Marathahalli":3,
-    "Koramangala":4
 
+    "Whitefield":1,
+
+    "HSR Layout":2,
+
+    "Marathahalli":3,
+
+    "Koramangala":4
 }
 
 
 
-# -------------------------
-# PREDICTION
-# -------------------------
+# ---------------------------
+# PREDICT
+# ---------------------------
 
 if st.button(
     "🚀 Predict Price"
@@ -198,43 +219,51 @@ if st.button(
     if area <=0:
 
         st.error(
-            "⚠️ Area must be greater than 0"
+            "Area must be greater than zero"
         )
 
 
     elif bedrooms <=0:
 
         st.error(
-            "⚠️ Bedrooms must be greater than 0"
+            "Bedrooms must be greater than zero"
         )
 
 
     else:
 
 
-        input_data = pd.DataFrame(
+        input_data = pd.DataFrame({
 
-            [[
+            "area":[area],
 
-                area,
+            "bedrooms":[bedrooms],
 
-                bedrooms,
+            "bathrooms":[bathrooms],
 
-                bathrooms,
+            "parking":[
+                1 if parking=="Yes" else 0
+            ],
 
-                1 if parking=="Yes" else 0,
+            "age":[age],
 
-                age,
+            "property_type":[
+                property_mapping[property_type]
+            ],
 
-                property_mapping[property_type],
-
+            "location":[
                 location_mapping[location]
+            ]
 
-            ]],
+        })
 
-            columns=model.feature_names_in_
 
-        )
+
+        # Match training columns
+
+        input_data = input_data[
+            model.feature_names_in_
+        ]
 
 
 
@@ -250,8 +279,6 @@ if st.button(
 
 
 
-        # Price range
-
         st.info(
             f"""
 📊 Expected Price Range
@@ -266,35 +293,32 @@ to
 
 
 
-# -------------------------
+# ---------------------------
 # GRAPH
-# -------------------------
-
-if hasattr(
-    model,
-    "feature_importances_"
-):
+# ---------------------------
 
 
-    st.subheader(
-        "📈 Feature Importance"
+st.subheader(
+    "📈 Feature Importance"
+)
+
+
+
+importance = pd.DataFrame({
+
+    "Feature":
+    model.feature_names_in_,
+
+
+    "Importance":
+    model.feature_importances_
+
+})
+
+
+
+st.bar_chart(
+    importance.set_index(
+        "Feature"
     )
-
-
-    graph_data = pd.DataFrame({
-
-        "Feature":
-        model.feature_names_in_,
-
-
-        "Importance":
-        model.feature_importances_
-
-    })
-
-
-    st.bar_chart(
-        graph_data.set_index(
-            "Feature"
-        )
-    )
+)
