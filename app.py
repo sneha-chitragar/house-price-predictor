@@ -51,28 +51,13 @@ except Exception:
 # ==============================
 st.markdown("### 📋 Enter Property Details")
 
-area = st.number_input(
-    "📏 Area (sq ft)",
-    min_value=500,
-    value=1000
-)
-
-bedrooms = st.number_input(
-    "🛏 Bedrooms",
-    min_value=1,
-    value=2
-)
-
-location = st.slider(
-    "📍 Location Score",
-    1,
-    5,
-    3
-)
+area = st.number_input("📏 Area (sq ft)", min_value=500, value=1000)
+bedrooms = st.number_input("🛏 Bedrooms", min_value=1, value=2)
+location = st.slider("📍 Location Score", 1, 5, 3)
 
 
 # ==============================
-# Prediction Section
+# Prediction Section (FIXED)
 # ==============================
 if st.button("🚀 Predict Price"):
 
@@ -80,17 +65,11 @@ if st.button("🚀 Predict Price"):
         st.error("⚠️ Enter valid inputs")
 
     else:
-        input_data = pd.DataFrame(
-            [[area, bedrooms, location]],
-            columns=["area", "bedrooms", "location"]
-        )
-
         with st.spinner("Predicting..."):
-            prediction = model.predict(input_data)
+            # ✅ FIX: Use array instead of DataFrame
+            prediction = model.predict([[area, bedrooms, location]])
 
-        st.success(
-            f"💰 Estimated Price: ₹ {prediction[0]:,.0f}"
-        )
+        st.success(f"💰 Estimated Price: ₹ {prediction[0]:,.0f}")
 
 
 # ==============================
@@ -106,9 +85,7 @@ if hasattr(model, "feature_importances_"):
         "Importance": model.feature_importances_
     })
 
-    st.bar_chart(
-        importance.set_index("Feature")
-    )
+    st.bar_chart(importance.set_index("Feature"))
 
 
 # ==============================
