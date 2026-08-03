@@ -2,121 +2,243 @@ import streamlit as st
 import joblib
 import pandas as pd
 
-# Page Config
+
+# Page config
+
 st.set_page_config(
     page_title="Property Price Predictor",
     page_icon="🏠",
     layout="centered"
 )
 
+
 st.title("🏠 Property Price Predictor")
 
 
-# ---------------------------
-# LOAD MODEL
-# ---------------------------
-try:
-    model = joblib.load("model.pkl")
+# Load model
 
-    st.success("✅ Model loaded successfully")
-    st.info(f"🤖 Model Used: {type(model).__name__}")
+try:
+
+    model = joblib.load(
+        "model.pkl"
+    )
+
+    st.success(
+        "✅ Model Loaded Successfully"
+    )
+
 
 except Exception as e:
-    st.error(f"❌ Model loading failed: {e}")
+
+    st.error(e)
     st.stop()
 
 
-# ---------------------------
-# USER INPUT
-# ---------------------------
-st.markdown("### 📋 Enter Property Details")
 
+# Sidebar
 
-area = st.number_input(
-    "📏 Area (sq ft)",
-    min_value=0,
-    value=0,
-    step=100
+st.sidebar.header(
+    "🤖 Model Information"
 )
 
 
-bedrooms = st.number_input(
-    "🛏 Number of Rooms",
-    min_value=0,
-    value=0,
-    step=1
+st.sidebar.write(
+    f"""
+Model:
+
+{type(model).__name__}
+
+
+Features:
+
+{list(model.feature_names_in_)}
+"""
 )
 
 
-location = st.slider(
+
+# User Input
+
+st.markdown(
+    "### 📋 Enter Property Details"
+)
+
+
+col1, col2 = st.columns(2)
+
+
+with col1:
+
+    area = st.number_input(
+        "📏 Area (sq ft)",
+        min_value=0,
+        value=0,
+        step=100
+    )
+
+
+with col2:
+
+    bedrooms = st.number_input(
+        "🛏 Number of Rooms",
+        min_value=0,
+        value=0,
+        step=1
+    )
+
+
+
+location = st.selectbox(
     "📍 Location Score",
-    min_value=1,
-    max_value=5,
-    value=3
+    [1,2,3,4,5],
+    index=2
 )
 
 
-# ---------------------------
-# PREDICTION
-# ---------------------------
-if st.button("🚀 Predict Price"):
 
-    # Validation
+# Prediction
+
+if st.button(
+    "🚀 Predict Price"
+):
+
+
     if area <= 0:
-        st.error("⚠️ Area must be greater than 0")
+
+        st.error(
+            "⚠️ Area must be greater than 0"
+        )
+
 
     elif bedrooms <= 0:
-        st.error("⚠️ Number of rooms must be greater than 0")
+
+        st.error(
+            "⚠️ Rooms must be greater than 0"
+        )
+
 
     else:
 
-        try:
 
-            # Get trained model feature names
-            input_data = pd.DataFrame(
-                [[area, bedrooms, location]],
-                columns=model.feature_names_in_
+        input_data = pd.DataFrame(
+            [
+                [
+                    area,
+                    bedrooms,
+                    location
+                ]
+            ],
+
+            columns=model.feature_names_in_
+        )
+
+
+        prediction = model.predict(
+            input_data
+        )[0]
+
+
+        st.success(
+            f"💰 Estimated Price: ₹ {prediction:,.0f}"
+        )
+
+
+        # Price range
+
+        lower = prediction * 0.9
+
+        upper = prediction * 1.1
+
+
+        st.info(
+            f"""
+📊 Expected Price Range
+
+₹ {lower:,.0f}
+
+to
+
+₹ {upper:,.0f}
+"""
+        )
+
+
+
+        # Summary
+
+        st.subheader(
+            "🏡 Property Summary"
+        )
+
+
+        summary = pd.DataFrame(
+            {
+                "Feature":
+                [
+                    "Area",
+                    "Rooms",
+                    "Location"
+                ],
+
+                "Value":
+                [
+                    area,
+                    bedrooms,
+                    location
+                ]
+            }
+        )
+
+
+        st.table(
+            summary
+        )
+
+
+
+        # Feature importance
+
+        if hasattr(
+            model,
+            "feature_importances_"
+        ):
+
+
+            st.subheader(
+                "📊 Feature Importance"
             )
 
 
-            prediction = model.predict(input_data)[0]
+            chart_data = pd.DataFrame(
+                {
+                    "Feature":
+                    model.feature_names_in_,
+
+                    "Importance":
+                    model.feature_importances_
+                }
+            )
 
 
-            if prediction <= 0:
-                st.warning("⚠️ Invalid prediction generated")
-
-            else:
-                st.success(
-                    f"💰 Estimated Property Price: ₹ {prediction:,.2f}"
+            st.bar_chart(
+                chart_data.set_index(
+                    "Feature"
                 )
+            )
 
 
-            # ---------------------------
-            # FEATURE IMPORTANCE GRAPH
-            # ---------------------------
-            if hasattr(model, "feature_importances_"):
 
-                st.markdown("---")
-                st.subheader("📊 Feature Importance")
+# Reset button
 
+if st.button(
+    "🔄 Reset"
+):
 
-                feature_data = pd.DataFrame(
-                    {
-                        "Feature": model.feature_names_in_,
-                        "Importance": model.feature_importances_
-                    }
-                )
+    st.rerun()
 
 
-                st.bar_chart(
-                    feature_data.set_index("Feature")
-                )
-
-
-        except Exception as e:
-            st.error(f"❌ Prediction Error: {e}")
-
-
-# Footer
 st.markdown("---")
-st.caption("Built with Python + Machine Learning + Streamlit 🚀")
+
+st.caption(
+    "Built using Python + Machine Learning + Streamlit 🚀"
+)
