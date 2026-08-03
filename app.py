@@ -1,12 +1,34 @@
-# ---------------------------
-# INPUT SECTION
-# ---------------------------
+import streamlit as st
+import joblib
+import pandas as pd
+
+# Page config
+st.set_page_config(
+    page_title="Property Price Predictor",
+    page_icon="🏠",
+    layout="centered"
+)
+
+st.title("🏠 Property Price Predictor")
+
+
+# Load model
+try:
+    model = joblib.load("model.pkl")
+    st.success("✅ Model loaded successfully")
+
+except Exception as e:
+    st.error(f"Model loading failed: {e}")
+    st.stop()
+
+
+# Input Section
 st.markdown("### 📋 Enter Property Details")
 
 area = st.number_input(
     "📏 Area (sq ft)",
     value=None,
-    placeholder="Enter area in sq ft",
+    placeholder="Enter area",
     step=100
 )
 
@@ -19,38 +41,29 @@ bedrooms = st.number_input(
 
 location = st.slider(
     "📍 Location Score",
-    min_value=1,
-    max_value=5,
-    value=3
+    1,
+    5,
+    3
 )
 
-# ---------------------------
-# PREDICTION
-# ---------------------------
+
+# Prediction
 if st.button("🚀 Predict Price"):
 
-    # Validation
     if area is None or bedrooms is None:
         st.error("⚠️ Please enter Area and Bedrooms")
-        
+
     elif area <= 0 or bedrooms <= 0:
-        st.error("⚠️ Area and Bedrooms must be greater than 0")
-        
+        st.error("⚠️ Values must be greater than zero")
+
     else:
-        try:
-            input_data = pd.DataFrame(
-                [[area, bedrooms, location]],
-                columns=["area", "bedrooms", "location"]
-            )
+        input_data = pd.DataFrame(
+            [[area, bedrooms, location]],
+            columns=["area", "bedrooms", "location"]
+        )
 
-            prediction = model.predict(input_data)[0]
+        prediction = model.predict(input_data)[0]
 
-            if prediction <= 0:
-                st.warning("⚠️ Invalid prediction value generated")
-            else:
-                st.success(
-                    f"💰 Estimated Price: ₹ {prediction:,.2f}"
-                )
-
-        except Exception as e:
-            st.error(f"Prediction error: {e}")
+        st.success(
+            f"💰 Estimated Price: ₹ {prediction:,.2f}"
+        )
