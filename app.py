@@ -1,118 +1,56 @@
-import streamlit as st
-import joblib
-import pandas as pd
-
-# ==============================
-# Page Configuration
-# ==============================
-st.set_page_config(
-    page_title="Property Price Predictor",
-    page_icon="🏠",
-    layout="centered"
-)
-
-st.title("🏠 Property Price Predictor")
-
-
-# ==============================
-# Load Model
-# ==============================
-try:
-    model = joblib.load("model.pkl")
-    st.success("✅ Model loaded successfully")
-
-    # Dynamic model name
-    model_name = type(model).__name__
-    st.info(f"🤖 Model Used: {model_name}")
-
-except Exception as e:
-    st.error(f"❌ Model loading failed: {e}")
-    st.stop()
-
-
-# ==============================
-# Load Metrics
-# ==============================
-try:
-    metrics = joblib.load("metrics.pkl")
-
-    st.sidebar.header("📊 Model Performance")
-
-    st.sidebar.metric("R² Score", f"{metrics['r2']:.2f}")
-    st.sidebar.metric("MAE", f"₹ {metrics['mae']:,.0f}")
-    st.sidebar.metric("RMSE", f"₹ {metrics['rmse']:,.0f}")
-
-except Exception:
-    st.sidebar.warning("⚠️ Metrics file not available")
-
-
-# ==============================
-# Input Section
-# ==============================
+# ---------------------------
+# INPUT SECTION
+# ---------------------------
 st.markdown("### 📋 Enter Property Details")
 
 area = st.number_input(
     "📏 Area (sq ft)",
-    min_value=500,   # prevents 0
-    value=1000
+    value=None,
+    placeholder="Enter area in sq ft",
+    step=100
 )
 
 bedrooms = st.number_input(
     "🛏 Bedrooms",
-    min_value=1,     # prevents 0
-    value=2
+    value=None,
+    placeholder="Enter number of bedrooms",
+    step=1
 )
 
 location = st.slider(
     "📍 Location Score",
-    1,
-    5,
-    3
+    min_value=1,
+    max_value=5,
+    value=3
 )
 
-
-# ==============================
-# Prediction Section (FIXED)
-# ==============================
+# ---------------------------
+# PREDICTION
+# ---------------------------
 if st.button("🚀 Predict Price"):
 
-    # Input validation
-    if area <= 0 or bedrooms <= 0:
+    # Validation
+    if area is None or bedrooms is None:
+        st.error("⚠️ Please enter Area and Bedrooms")
+        
+    elif area <= 0 or bedrooms <= 0:
         st.error("⚠️ Area and Bedrooms must be greater than 0")
-
-    elif location < 1 or location > 5:
-        st.error("⚠️ Location must be between 1 and 5")
-
+        
     else:
-        with st.spinner("Predicting..."):
-            # Use array (fixes sklearn error)
-            prediction = model.predict([[area, bedrooms, location]])
+        try:
+            input_data = pd.DataFrame(
+                [[area, bedrooms, location]],
+                columns=["area", "bedrooms", "location"]
+            )
 
-        st.success(
-            f"💰 Estimated Price: ₹ {prediction[0]:,.0f}"
-        )
+            prediction = model.predict(input_data)[0]
 
+            if prediction <= 0:
+                st.warning("⚠️ Invalid prediction value generated")
+            else:
+                st.success(
+                    f"💰 Estimated Price: ₹ {prediction:,.2f}"
+                )
 
-# ==============================
-# Feature Importance
-# ==============================
-if hasattr(model, "feature_importances_"):
-
-    st.markdown("---")
-    st.subheader("📈 Feature Importance")
-
-    importance = pd.DataFrame({
-        "Feature": ["Area", "Bedrooms", "Location"],
-        "Importance": model.feature_importances_
-    })
-
-    st.bar_chart(
-        importance.set_index("Feature")
-    )
-
-
-# ==============================
-# Footer
-# ==============================
-st.markdown("---")
-st.caption("Built with Python + Machine Learning + Streamlit")
+        except Exception as e:
+            st.error(f"Prediction error: {e}")
