@@ -30,6 +30,7 @@ except Exception as e:
 try:
     metrics = joblib.load("metrics.pkl")
 
+    
     st.sidebar.header("📊 Model Performance")
 
     st.sidebar.write(
@@ -77,9 +78,12 @@ if st.button("🚀 Predict Price"):
 
     else:
 
-        prediction = model.predict(
-            [[area, bedrooms, location]]
-        )
+       input_data = pd.DataFrame(
+    [[area, bedrooms, location]],
+    columns=["area", "bedrooms", "location"]
+)
+
+prediction = model.predict(input_data)
 
         st.success(
             f"💰 Estimated Price: ₹ {prediction[0]:,.2f}"
