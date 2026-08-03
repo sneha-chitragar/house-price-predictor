@@ -3,38 +3,135 @@ import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import (
+    r2_score,
+    mean_absolute_error,
+    mean_squared_error
+)
 
 
-# Sample dataset
+# ---------------------------
+# DATASET
+# ---------------------------
+
 data = {
-    "area": [800, 1000, 1200, 1500, 1800, 2200],
-    "bedrooms": [1, 2, 2, 3, 3, 4],
-    "location": [2, 3, 4, 4, 5, 5],
-    "price": [4000000, 5500000, 7000000, 9000000, 12000000, 15000000]
+
+    "area": [
+        800,1000,1200,1500,1800,2200,
+        2500,3000
+    ],
+
+    "bedrooms":[
+        1,2,2,3,3,4,4,5
+    ],
+
+    "bathrooms":[
+        1,2,2,3,3,4,4,5
+    ],
+
+    "parking":[
+        0,1,1,1,2,2,2,3
+    ],
+
+    "age":[
+        20,15,10,8,5,3,2,1
+    ],
+
+    "property_type":[
+        "Apartment",
+        "Apartment",
+        "Villa",
+        "Apartment",
+        "Villa",
+        "Independent House",
+        "Villa",
+        "Independent House"
+    ],
+
+    "location":[
+        "Electronic City",
+        "Whitefield",
+        "HSR Layout",
+        "Marathahalli",
+        "Koramangala",
+        "Whitefield",
+        "HSR Layout",
+        "Koramangala"
+    ],
+
+    "price":[
+        4000000,
+        5500000,
+        7500000,
+        9500000,
+        12000000,
+        15000000,
+        18000000,
+        25000000
+    ]
+
 }
 
 
-df = pd.DataFrame(data)
+df=pd.DataFrame(data)
 
 
-# Features and Target
 
-X = df[
-    [
-        "area",
-        "bedrooms",
-        "location"
-    ]
-]
+# ---------------------------
+# ENCODING CATEGORICAL DATA
+# ---------------------------
 
+encoder_property = LabelEncoder()
 
-y = df["price"]
+encoder_location = LabelEncoder()
 
 
-# Train test split
+df["property_type"] = encoder_property.fit_transform(
+    df["property_type"]
+)
 
-X_train, X_test, y_train, y_test = train_test_split(
+
+df["location"] = encoder_location.fit_transform(
+    df["location"]
+)
+
+
+
+# Save encoders
+
+joblib.dump(
+    encoder_property,
+    "property_encoder.pkl"
+)
+
+
+joblib.dump(
+    encoder_location,
+    "location_encoder.pkl"
+)
+
+
+
+# ---------------------------
+# FEATURES
+# ---------------------------
+
+X=df.drop(
+    "price",
+    axis=1
+)
+
+
+y=df["price"]
+
+
+
+# ---------------------------
+# TRAIN MODEL
+# ---------------------------
+
+X_train,X_test,y_train,y_test=train_test_split(
     X,
     y,
     test_size=0.2,
@@ -42,9 +139,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 
-# Model
 
-model = RandomForestRegressor(
+model=RandomForestRegressor(
     n_estimators=100,
     random_state=42
 )
@@ -56,30 +152,39 @@ model.fit(
 )
 
 
-# Evaluation
 
-prediction = model.predict(X_test)
+# ---------------------------
+# MODEL EVALUATION
+# ---------------------------
+
+prediction=model.predict(
+    X_test
+)
 
 
-metrics = {
+metrics={
 
-    "r2": r2_score(y_test, prediction),
+"r2":
+r2_score(y_test,prediction),
 
-    "mae": mean_absolute_error(
-        y_test,
-        prediction
-    ),
+"mae":
+mean_absolute_error(y_test,prediction),
 
-    "rmse": mean_squared_error(
-        y_test,
-        prediction,
-        squared=False
-    )
+"rmse":
+mean_squared_error(
+    y_test,
+    prediction,
+    squared=False
+)
 
 }
 
 
-# Save model
+
+# ---------------------------
+# SAVE FILES
+# ---------------------------
+
 
 joblib.dump(
     model,
@@ -87,13 +192,12 @@ joblib.dump(
 )
 
 
-# Save metrics
-
 joblib.dump(
     metrics,
     "metrics.pkl"
 )
 
 
-print("Model trained successfully")
+
+print("Model training completed")
 print(metrics)
