@@ -1,71 +1,147 @@
 import pandas as pd
 import joblib
-import os
-from sklearn.ensemble import RandomForestRegressor
+import json
+
 from sklearn.model_selection import train_test_split
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.pipeline import Pipeline
 
-print("🚀 Script started")
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import (
+    r2_score,
+    mean_absolute_error,
+    mean_squared_error
+)
 
-# Show current folder
-print("📁 Current working directory:", os.getcwd())
 
-# ==============================
-# LOAD DATA
-# ==============================
-try:
-    df = pd.read_csv("Bangalore_House_Data.csv")
-    print("✅ Dataset loaded")
-except Exception as e:
-    print("❌ Error loading dataset:", e)
-    exit()
+# Load dataset
+df = pd.read_csv("housing_data.csv")
 
-print(df.head())
 
-# ==============================
-# CHECK COLUMNS
-# ==============================
-required_cols = ['area', 'bedrooms', 'bathrooms', 'parking', 'location', 'price']
+# Remove missing values
+df = df.dropna()
 
-for col in required_cols:
-    if col not in df.columns:
-        print(f"❌ Missing column: {col}")
-        exit()
 
-# ==============================
-# PREPROCESSING
-# ==============================
-df = df[required_cols]
-
-df = pd.get_dummies(df, columns=['location'])
-
-# ==============================
-# FEATURES & TARGET
-# ==============================
+# Features dynamically picked
 X = df.drop("price", axis=1)
+
 y = df["price"]
 
-# ==============================
-# TRAIN MODEL
-# ==============================
-model = RandomForestRegressor(n_estimators=100)
 
-model.fit(X, y)
+categorical_features = X.select_dtypes(
+    include="object"
+).columns.tolist()
 
-print("✅ Model trained successfully")
 
-# ==============================
-# SAVE FILES
-# ==============================
-try:
-    joblib.dump(model, "model.pkl")
-    print("✅ model.pkl saved")
-except Exception as e:
-    print("❌ Error saving model:", e)
+numeric_features = X.select_dtypes(
+    exclude="object"
+).columns.tolist()
 
-try:
-    joblib.dump(X.columns.tolist(), "columns.pkl")
-    print("✅ columns.pkl saved")
-except Exception as e:
-    print("❌ Error saving columns:", e)
 
-print("🎉 DONE")
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        (
+            "categorical",
+            OneHotEncoder(
+                handle_unknown="ignore"
+            ),
+            categorical_features
+        )
+    ],
+    remainder="passthrough"
+)
+
+
+
+model = RandomForestRegressor(
+    n_estimators=300,
+    random_state=42
+)
+
+
+
+pipeline = Pipeline(
+    [
+        (
+            "preprocessor",
+            preprocessor
+        ),
+        (
+            "model",
+            model
+        )
+    ]
+)
+
+
+
+X_train,X_test,y_train,y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+
+
+pipeline.fit(
+    X_train,
+    y_train
+)
+
+
+
+prediction = pipeline.predict(X_test)
+
+
+
+metrics = {
+
+"model":
+"RandomForestRegressor",
+
+"r2_score":
+round(r2_score(y_test,prediction),3),
+
+"mae":
+round(mean_absolute_error(y_test,prediction),2),
+
+"rmse":
+round(
+mean_squared_error(
+y_test,
+prediction,
+squared=False
+),
+2
+)
+
+}
+
+
+
+joblib.dump(
+pipeline,
+"model_pipeline.pkl"
+)
+
+
+
+with open(
+"metrics.json",
+"w"
+) as f:
+    json.dump(
+        metrics,
+        f,
+        indent=4
+    )
+
+
+print(
+"Model trained successfully"
+)
+
+print(metrics)
