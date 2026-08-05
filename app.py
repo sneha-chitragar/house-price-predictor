@@ -1,63 +1,26 @@
 import streamlit as st
 import joblib
-import pandas as pd
-import os
+import numpy as np
 
-st.set_page_config(page_title="House Price Predictor", page_icon="🏠")
+# Load model
+model = joblib.load('model.pkl')
 
-st.title("🏠 House Price Predictor")
+st.title("🏠 Property Price Predictor")
 
-# -----------------------
-# CHECK FILES EXIST
-# -----------------------
-if not os.path.exists("model.pkl"):
-    st.error("❌ model.pkl not found. Upload it to your repo.")
-    st.stop()
+st.write("Enter property details:")
 
-# -----------------------
-# LOAD MODEL SAFELY
-# -----------------------
-try:
-    model = joblib.load("model.pkl")
-    st.success("✅ Model loaded successfully")
-except Exception as e:
-    st.error(f"❌ Model failed to load: {e}")
-    st.stop()
+# Inputs
+area = st.number_input("Area (sq ft)", min_value=500, max_value=5000, value=1000)
+bedrooms = st.number_input("Bedrooms", min_value=1, max_value=10, value=2)
+location = st.selectbox("Location", ["Low", "Medium", "High"])
 
-# -----------------------
-# INPUTS
-# -----------------------
-st.subheader("Enter Details")
+# Convert location to numeric
+location_map = {"Low": 1, "Medium": 2, "High": 3}
+location_score = location_map[location]
 
-area = st.number_input("Area (sq ft)", min_value=1, step=50)
-bedrooms = st.number_input("Bedrooms", min_value=1, step=1)
-location = st.slider("Location Score", 1, 5, 3)
-
-# -----------------------
-# PREDICTION
-# -----------------------
+# Prediction
 if st.button("Predict Price"):
+    features = np.array([[area, bedrooms, location_score]])
+    prediction = model.predict(features)
 
-    # Validation
-    if area <= 0 or bedrooms <= 0:
-        st.error("❌ Values must be greater than 0")
-        st.stop()
-
-    try:
-        # Try with column names
-        input_df = pd.DataFrame(
-            [[area, bedrooms, location]],
-            columns=["area", "bedrooms", "location"]
-        )
-
-        prediction = model.predict(input_df)[0]
-
-    except Exception:
-        # fallback (if model doesn't use feature names)
-        input_df = [[area, bedrooms, location]]
-        prediction = model.predict(input_df)[0]
-
-    if prediction <= 0:
-        st.warning("⚠️ Invalid prediction. Try different values.")
-    else:
-        st.success(f"💰 Estimated Price: ₹ {prediction:,.2f}")
+    st.success(f"Estimated Price: ₹ {prediction[0]:.2f} Lakhs")
