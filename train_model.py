@@ -1,38 +1,49 @@
-import streamlit as st
-import joblib
 import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score, mean_absolute_error
+import joblib
 
-model = joblib.load("model.pkl")
-columns = joblib.load("columns.pkl")
+# Load dataset
+data = pd.read_csv("housing.csv")
 
-st.title("🏠 Bangalore House Price Predictor")
+# One-hot encoding for location
+data = pd.get_dummies(data, columns=["location"])
 
-area = st.number_input("Area (sq ft)", 500, 5000)
-bedrooms = st.number_input("Bedrooms", 1, 6)
+# Features and target
+X = data.drop("price", axis=1)
+y = data["price"]
 
-location = st.selectbox(
-    "Location",
-    [
-        "Indiranagar", "Whitefield", "HSR Layout",
-        "BTM", "Electronic City", "Marathahalli",
-        "Hebbal", "Yelahanka", "Kengeri", "Bannerghatta"
-    ]
+# Split (for better evaluation)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
 )
 
-if st.button("Predict Price"):
-    input_data = pd.DataFrame([[area, bedrooms]], columns=["area", "bedrooms"])
+# Model
+model = RandomForestRegressor(
+    n_estimators=300,
+    max_depth=20,
+    random_state=42
+)
 
-    # Add all location columns
-    for col in columns:
-        if col.startswith("location_"):
-            input_data[col] = 0
+# Train
+model.fit(X_train, y_train)
 
-    # Set selected location = 1
-    input_data[f"location_{location}"] = 1
+# Predictions
+y_pred = model.predict(X_test)
 
-    # Reorder columns
-    input_data = input_data.reindex(columns=columns, fill_value=0)
+# Evaluation
+r2 = r2_score(y_test, y_pred)
+mae = mean_absolute_error(y_test, y_pred)
 
-    prediction = model.predict(input_data)[0]
+print("📊 Model Performance:")
+print(f"R2 Score: {round(r2, 3)}")
+print(f"MAE: {round(mae, 2)} Lakhs")
 
-    st.success(f"💰 Estimated Price: ₹ {round(prediction,2)} Lakhs")
+# Save model
+joblib.dump(model, "model.pkl")
+
+# Save column structure (VERY IMPORTANT for app.py)
+joblib.dump(X.columns.tolist(), "columns.pkl")
+
+print("✅ Model trained and saved successfully")
