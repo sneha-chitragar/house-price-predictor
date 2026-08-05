@@ -3,16 +3,18 @@ import joblib
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
-# Load dataset
+# ==============================
+# LOAD DATA
+# ==============================
 df = pd.read_csv("Bangalore_House_Data.csv")
 
-# Keep required columns
+# Keep only required columns
 df = df[['area', 'bedrooms', 'bathrooms', 'parking', 'location', 'price']]
 
-# Convert location → numbers
+# Convert location to numeric (one-hot encoding)
 df = pd.get_dummies(df, columns=['location'])
 
-# Features & target
+# Features and target
 X = df.drop("price", axis=1)
 y = df["price"]
 
@@ -23,8 +25,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 model = RandomForestRegressor(n_estimators=100)
 model.fit(X_train, y_train)
 
-# Save files
+print("✅ Model trained")
+
+# ==============================
+# SAVE FILES (IMPORTANT)
+# ==============================
 joblib.dump(model, "model.pkl")
 joblib.dump(X.columns.tolist(), "columns.pkl")
 
-print("✅ New property price model created")
+print("✅ model.pkl saved")
+print("✅ columns.pkl saved")
