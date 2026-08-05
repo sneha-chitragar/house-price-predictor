@@ -1,37 +1,71 @@
 import pandas as pd
 import joblib
+import os
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
+
+print("🚀 Script started")
+
+# Show current folder
+print("📁 Current working directory:", os.getcwd())
 
 # ==============================
 # LOAD DATA
 # ==============================
-df = pd.read_csv("Bangalore_House_Data.csv")
+try:
+    df = pd.read_csv("Bangalore_House_Data.csv")
+    print("✅ Dataset loaded")
+except Exception as e:
+    print("❌ Error loading dataset:", e)
+    exit()
 
-# Keep only required columns
-df = df[['area', 'bedrooms', 'bathrooms', 'parking', 'location', 'price']]
+print(df.head())
 
-# Convert location to numeric (one-hot encoding)
+# ==============================
+# CHECK COLUMNS
+# ==============================
+required_cols = ['area', 'bedrooms', 'bathrooms', 'parking', 'location', 'price']
+
+for col in required_cols:
+    if col not in df.columns:
+        print(f"❌ Missing column: {col}")
+        exit()
+
+# ==============================
+# PREPROCESSING
+# ==============================
+df = df[required_cols]
+
 df = pd.get_dummies(df, columns=['location'])
 
-# Features and target
+# ==============================
+# FEATURES & TARGET
+# ==============================
 X = df.drop("price", axis=1)
 y = df["price"]
 
-# Train test split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Train model
+# ==============================
+# TRAIN MODEL
+# ==============================
 model = RandomForestRegressor(n_estimators=100)
-model.fit(X_train, y_train)
 
-print("✅ Model trained")
+model.fit(X, y)
+
+print("✅ Model trained successfully")
 
 # ==============================
-# SAVE FILES (IMPORTANT)
+# SAVE FILES
 # ==============================
-joblib.dump(model, "model.pkl")
-joblib.dump(X.columns.tolist(), "columns.pkl")
+try:
+    joblib.dump(model, "model.pkl")
+    print("✅ model.pkl saved")
+except Exception as e:
+    print("❌ Error saving model:", e)
 
-print("✅ model.pkl saved")
-print("✅ columns.pkl saved")
+try:
+    joblib.dump(X.columns.tolist(), "columns.pkl")
+    print("✅ columns.pkl saved")
+except Exception as e:
+    print("❌ Error saving columns:", e)
+
+print("🎉 DONE")
