@@ -1,100 +1,130 @@
-import os
-
-print("📁 Files are being saved in:", os.getcwd())
 import streamlit as st
+import pandas as pd
 import joblib
-import numpy as np
+import json
 
-# -------------------------------
-# Load Model
-# -------------------------------
-try:
-    model = joblib.load("model.pkl")
-except Exception as e:
-    st.error(f"❌ Model loading failed: {e}")
-    st.stop()
 
-# -------------------------------
-# Page Configuration
-# -------------------------------
+
 st.set_page_config(
-    page_title="Property Price Predictor",
-    page_icon="🏠",
-    layout="centered"
+page_title="Property Price Predictor",
+layout="wide"
 )
 
-# -------------------------------
-# Application Title
-# -------------------------------
-st.title("🏠 Property Price Predictor")
 
-st.write(
-    "Predict house prices using Machine Learning based on "
-    "area, bedrooms, and location."
+
+model = joblib.load(
+"model_pipeline.pkl"
 )
 
-st.markdown("---")
 
-# -------------------------------
-# Input Section
-# -------------------------------
-st.subheader("Enter Property Details")
 
-area = st.number_input(
-    "Area (sq ft)",
-    min_value=500,
-    max_value=10000,
-    value=1000
+df = pd.read_csv(
+"housing_data.csv"
 )
 
-bedrooms = st.number_input(
-    "Number of Bedrooms",
-    min_value=1,
-    max_value=10,
-    value=2
+
+
+with open(
+"metrics.json"
+) as f:
+    metrics=json.load(f)
+
+
+
+st.title(
+"🏠 Property Price Predictor"
 )
 
-location = st.selectbox(
-    "Location",
-    ["Low", "Medium", "High"]
+
+
+st.sidebar.header(
+"Model Information"
 )
 
-# Convert location to numerical value
-location_mapping = {
-    "Low": 1,
-    "Medium": 2,
-    "High": 3
-}
 
-location_score = location_mapping[location]
 
-# -------------------------------
-# Prediction
-# -------------------------------
-if st.button("Predict Price"):
+st.sidebar.write(
+"Model:",
+metrics["model"]
+)
 
-    input_data = np.array(
-        [[area, bedrooms, location_score]]
-    )
 
-    try:
-        prediction = model.predict(input_data)
+st.sidebar.write(
+"R2 Score:",
+metrics["r2_score"]
+)
 
-        st.success(
-            f"🏡 Estimated Property Price: ₹ {prediction[0]:,.2f} Lakhs"
+
+st.sidebar.write(
+"MAE:",
+metrics["mae"]
+)
+
+
+st.sidebar.write(
+"RMSE:",
+metrics["rmse"]
+)
+
+
+
+st.subheader(
+"Enter Property Details"
+)
+
+
+
+input_data={}
+
+
+
+for column in df.drop(
+"price",
+axis=1
+).columns:
+
+
+    if df[column].dtype=="object":
+
+        input_data[column]=st.selectbox(
+            column,
+            sorted(
+                df[column]
+                .dropna()
+                .unique()
+            )
         )
 
-    except Exception as e:
-        st.error(f"Prediction failed: {e}")
+
+    else:
+
+        input_data[column]=st.number_input(
+            column,
+            float(
+                df[column].min()
+            ),
+            float(
+                df[column].max()
+            )
+        )
 
 
-# -------------------------------
-# Model Information
-# -------------------------------
-st.markdown("---")
 
-st.subheader("📊 Model Information")
+input_df=pd.DataFrame(
+[input_data]
+)
 
-st.write("**Algorithm:** Random Forest Regressor")
-st.write("**Input Features:** Area, Bedrooms, Location")
-st.write("**Prediction Type:** House Price Estimation")
+
+
+if st.button(
+"Predict Price"
+):
+
+    result=model.predict(
+        input_df
+    )
+
+
+    st.success(
+        f"Estimated Price: ₹ {result[0]:,.2f}"
+    )
