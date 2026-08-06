@@ -1,6 +1,10 @@
 streamlit
 pandas
 numpy
+<<<<<<< HEAD
 scikit-learn
 joblib
 matplotlib
+=======
+plotly
+>>>>>>> 03e2946 (remove matplotlib fix)
