@@ -5,15 +5,28 @@ import json
 import matplotlib.pyplot as plt
 
 
-
+# Page settings
 st.set_page_config(
-
-    page_title="Property Price Predictor",
-
+    page_title="Bangalore Property Price Predictor",
     page_icon="🏠",
+    layout="wide"
+)
 
-    layout="centered"
 
+# Remove number input arrows
+st.markdown(
+"""
+<style>
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+</style>
+""",
+unsafe_allow_html=True
 )
 
 
@@ -21,10 +34,19 @@ st.set_page_config(
 # Load model
 
 model = joblib.load(
-
     "model_pipeline.pkl"
-
 )
+
+
+
+# Load dataset
+
+df = pd.read_csv(
+    "housing_data.csv"
+)
+
+
+df.columns = df.columns.str.strip()
 
 
 
@@ -32,239 +54,205 @@ model = joblib.load(
 
 try:
 
-    with open("metrics.json") as f:
+    with open(
+        "metrics.json",
+        "r"
+    ) as file:
 
-        metrics = json.load(f)
+        metrics=json.load(file)
 
 except:
 
-    metrics = {}
+    metrics={}
 
 
 
+
+# Title
 
 st.title(
-    "🏠 Property Price Predictor"
+    "🏠 Bangalore Property Price Predictor"
 )
 
 
 st.write(
-    "Predict property prices using Machine Learning"
+    "Machine Learning based property price prediction"
 )
 
 
 
-# Model information
+# Sidebar model information
 
-if metrics:
+with st.sidebar:
 
-    st.sidebar.header(
-        "Model Performance"
+    st.header(
+        "🤖 Model Information"
     )
 
 
-    st.sidebar.write(
-        "Model:",
-        metrics["model"]
-    )
+    if metrics:
+
+        st.write(
+            "Model:",
+            metrics.get("model")
+        )
+
+        st.write(
+            "R2 Score:",
+            metrics.get("r2_score")
+        )
+
+        st.write(
+            "MAE:",
+            metrics.get("mae")
+        )
+
+        st.write(
+            "RMSE:",
+            metrics.get("rmse")
+        )
 
 
-    st.sidebar.write(
-        "R2 Score:",
-        metrics["r2_score"]
-    )
+
+# Dynamic values from dataset
+
+locations = sorted(
+    df["location"]
+    .dropna()
+    .unique()
+)
 
 
-    st.sidebar.write(
-        "MAE:",
-        metrics["mae"]
-    )
-
-
-    st.sidebar.write(
-        "RMSE:",
-        metrics["rmse"]
-    )
-
-
-
-st.subheader(
-    "Enter Property Details"
+property_types = sorted(
+    df["property_type"]
+    .dropna()
+    .unique()
 )
 
 
 
-# Inputs
 
-area = st.number_input(
+# Layout
 
-    "Area (sq ft)",
-
-    min_value=100,
-
-    value=1500
-
-)
-
-
-bedrooms = st.number_input(
-
-    "Bedrooms",
-
-    min_value=1,
-
-    value=2
-
-)
-
-
-bathrooms = st.number_input(
-
-    "Bathrooms",
-
-    min_value=1,
-
-    value=2
-
-)
-
-
-property_age = st.number_input(
-
-    "Property Age",
-
-    min_value=0,
-
-    value=5
-
-)
-
-
-parking = st.number_input(
-
-    "Parking",
-
-    min_value=0,
-
-    value=1
-
+input_col, graph_col = st.columns(
+    [1,1]
 )
 
 
 
-location = st.selectbox(
+# Input section
 
-    "Location",
+with input_col:
 
-    [
-
-        "BTM",
-
-        "Indiranagar",
-
-        "Yelahanka"
-
-    ]
-
-)
-
-
-
-property_type = st.selectbox(
-
-    "Property Type",
-
-    [
-
-        "Apartment",
-
-        "Villa"
-
-    ]
-
-)
-
-
-
-if st.button(
-    "Predict Price"
-):
-
-
-    input_data = pd.DataFrame(
-
-        {
-
-        "area":
-        [area],
-
-
-        "bedrooms":
-        [bedrooms],
-
-
-        "bathrooms":
-        [bathrooms],
-
-
-        "property_age":
-        [property_age],
-
-
-        "parking":
-        [parking],
-
-
-        "location":
-        [location],
-
-
-        "property_type":
-        [property_type]
-
-        }
-
-    )
-
-
-
-    prediction = model.predict(
-
-        input_data
-
-    )
-
-
-
-    predicted_price = round(
-
-        prediction[0],
-
-        2
-
-    )
-
-
-
-    st.success(
-
-        f"💰 Estimated Price: ₹ {predicted_price} Lakhs"
-
-    )
-
-
-
-    # Dynamic Graph
 
     st.subheader(
+        "📋 Enter Property Details"
+    )
 
-        "📊 Property Input Visualization"
+
+    area = st.number_input(
+
+        "Area (sq ft)",
+
+        value=int(
+            df["area"].mean()
+        ),
+
+        step=100
 
     )
 
 
 
-    chart_data = pd.DataFrame(
+    bedrooms = st.number_input(
+
+        "Bedrooms",
+
+        value=int(
+            df["bedrooms"].mean()
+        ),
+
+        step=1
+
+    )
+
+
+
+    bathrooms = st.number_input(
+
+        "Bathrooms",
+
+        value=int(
+            df["bathrooms"].mean()
+        ),
+
+        step=1
+
+    )
+
+
+
+    property_age = st.number_input(
+
+        "Property Age",
+
+        value=int(
+            df["property_age"].mean()
+        ),
+
+        step=1
+
+    )
+
+
+
+    parking = st.number_input(
+
+        "Parking",
+
+        value=int(
+            df["parking"].mean()
+        ),
+
+        step=1
+
+    )
+
+
+
+    location = st.selectbox(
+
+        "Location",
+
+        locations
+
+    )
+
+
+
+    property_type = st.selectbox(
+
+        "Property Type",
+
+        property_types
+
+    )
+
+
+
+
+
+# Graph section
+
+with graph_col:
+
+
+    st.subheader(
+        "📊 Property Analysis"
+    )
+
+
+    chart_df = pd.DataFrame(
 
         {
 
@@ -272,15 +260,11 @@ if st.button(
 
         [
 
-        "Area",
-
-        "Bedrooms",
-
-        "Bathrooms",
-
-        "Age",
-
-        "Parking"
+            "Area",
+            "Bedrooms",
+            "Bathrooms",
+            "Age",
+            "Parking"
 
         ],
 
@@ -289,15 +273,11 @@ if st.button(
 
         [
 
-        area,
-
-        bedrooms,
-
-        bathrooms,
-
-        property_age,
-
-        parking
+            area,
+            bedrooms,
+            bathrooms,
+            property_age,
+            parking
 
         ]
 
@@ -306,47 +286,201 @@ if st.button(
     )
 
 
-
     fig, ax = plt.subplots(
-
-        figsize=(6,3)
-
+        figsize=(5,3)
     )
 
 
     ax.bar(
 
-        chart_data["Feature"],
+        chart_df["Feature"],
 
-        chart_data["Value"]
+        chart_df["Value"]
 
     )
 
 
+    ax.set_ylabel(
+        "Value"
+    )
+
+
     plt.xticks(
-
         rotation=45
-
     )
 
 
     plt.tight_layout()
 
 
-
     st.pyplot(fig)
 
 
 
-    st.subheader(
 
-        "Selected Input"
+# Prediction button
+
+if st.button(
+    "🔮 Predict Price"
+):
+
+
+    input_data = pd.DataFrame(
+
+        {
+
+        "area":[area],
+
+        "bedrooms":[bedrooms],
+
+        "bathrooms":[bathrooms],
+
+        "property_age":[property_age],
+
+        "parking":[parking],
+
+        "location":[location],
+
+        "property_type":[property_type]
+
+        }
 
     )
 
 
-    st.dataframe(
-
+    prediction = model.predict(
         input_data
+    )
+
+
+    price = round(
+        prediction[0],
+        2
+    )
+
+
+    st.success(
+
+        f"💰 Estimated Price: ₹ {price} Lakhs"
 
     )
+
+
+
+    # Filter properties
+
+    similar = df[
+
+        (df["location"]==location)
+
+        &
+
+        (df["property_type"]==property_type)
+
+    ]
+
+
+
+    tab1, tab2 = st.tabs(
+
+        [
+
+        "🏘 Similar Properties",
+
+        "👤 Owner Details"
+
+        ]
+
+    )
+
+
+
+    with tab1:
+
+
+        st.subheader(
+            "Similar Properties"
+        )
+
+
+        if len(similar)>0:
+
+
+            display_columns = [
+
+                col for col in similar.columns
+
+                if "owner" not in col.lower()
+
+                and "phone" not in col.lower()
+
+                and "email" not in col.lower()
+
+            ]
+
+
+            st.dataframe(
+
+                similar[display_columns]
+                .head(10),
+
+                use_container_width=True
+
+            )
+
+
+        else:
+
+            st.info(
+                "No matching properties found"
+            )
+
+
+
+
+
+    with tab2:
+
+
+        st.subheader(
+            "Owner Details"
+        )
+
+
+        if len(similar)>0:
+
+
+            owner = similar.sample(
+                1
+            ).iloc[0]
+
+
+            if "owner_name" in df.columns:
+
+                st.write(
+                    "👤 Name:",
+                    owner["owner_name"]
+                )
+
+
+            if "owner_phone" in df.columns:
+
+                st.write(
+                    "📞 Phone:",
+                    owner["owner_phone"]
+                )
+
+
+            if "owner_email" in df.columns:
+
+                st.write(
+                    "📧 Email:",
+                    owner["owner_email"]
+                )
+
+
+        else:
+
+            st.info(
+                "Owner details unavailable"
+            )

@@ -1,11 +1,501 @@
-area,bedrooms,bathrooms,property_age,parking,location,property_type,price
-2261,3,2,5,1,Yelahanka,Apartment,172.97
-4312,4,3,2,2,Indiranagar,Villa,520.44
-2105,3,2,4,1,Yelahanka,Apartment,166.83
-742,2,1,10,0,BTM,Apartment,94.36
-967,2,2,8,1,BTM,Apartment,113.36
-3000,4,3,3,2,Indiranagar,Villa,420
-1500,2,2,6,1,Yelahanka,Apartment,150
-1800,3,2,7,1,BTM,Apartment,180
-2500,4,3,5,2,Indiranagar,Villa,350
-1200,2,1,12,0,BTM,Apartment,110
+area,bedrooms,bathrooms,property_age,parking,location,property_type,price,owner_name,owner_phone,owner_email
+3849,5,1,1,0,Whitefield,Apartment,603.85,Anil Sharma,9792676080,anil.sharma@gmail.com
+1451,3,3,6,2,Koramangala,Villa,308.2,Meera Joshi,9227871046,meera.joshi@gmail.com
+4035,5,5,19,0,Marathahalli,Independent House,509.7,Meera Joshi,9436675728,meera.joshi@gmail.com
+4694,4,5,19,1,Koramangala,Apartment,959.3,Arjun Reddy,9838602389,arjun.reddy@gmail.com
+4287,1,4,16,2,Marathahalli,Villa,519.44,Rajesh Kumar,9460537444,rajesh.kumar@gmail.com
+3535,2,2,0,1,Whitefield,Villa,544.25,Anil Sharma,9042951240,anil.sharma@gmail.com
+770,4,4,8,0,Yelahanka,Villa,101.0,Meera Joshi,9529035578,meera.joshi@gmail.com
+1459,5,2,5,1,Koramangala,Apartment,318.3,Vikram Singh,9175751406,vikram.singh@gmail.com
+2699,4,2,19,0,Whitefield,Apartment,419.35,Priya Rao,9704180617,priya.rao@gmail.com
+2293,1,2,5,2,Whitefield,Villa,350.45,Meera Joshi,9085443372,meera.joshi@gmail.com
+3105,5,1,20,0,Electronic City,Villa,296.45,Rajesh Kumar,9112827643,rajesh.kumar@gmail.com
+3951,3,1,13,3,Electronic City,Villa,366.09,Priya Rao,9372797297,priya.rao@gmail.com
+4629,4,4,3,2,Koramangala,Villa,952.3,Rajesh Kumar,9025358570,rajesh.kumar@gmail.com
+2109,4,4,18,0,BTM,Apartment,314.26,Anil Sharma,9174288792,anil.sharma@gmail.com
+2019,3,1,10,0,Whitefield,Independent House,314.85,Anil Sharma,9083866589,anil.sharma@gmail.com
+3942,1,3,18,2,Koramangala,Apartment,790.4,Meera Joshi,9801392357,meera.joshi@gmail.com
+948,5,2,2,2,Electronic City,Villa,113.32,Rajesh Kumar,9326039564,rajesh.kumar@gmail.com
+647,5,2,13,0,HSR Layout,Apartment,132.49,Anil Sharma,9156720170,anil.sharma@gmail.com
+3577,3,4,9,2,Yelahanka,Villa,376.2,Sneha Patil,9591641115,sneha.patil@gmail.com
+2231,2,3,2,2,BTM,Villa,327.34,Priya Rao,9250737321,priya.rao@gmail.com
+4791,3,3,0,3,Electronic City,Independent House,452.19,Sneha Patil,9162715332,sneha.patil@gmail.com
+1765,1,5,4,2,Yelahanka,Apartment,189.5,Sneha Patil,9563461158,sneha.patil@gmail.com
+4291,1,4,16,1,BTM,Apartment,605.74,Meera Joshi,9655340030,meera.joshi@gmail.com
+3149,1,3,9,2,HSR Layout,Villa,541.83,Arjun Reddy,9874862604,arjun.reddy@gmail.com
+979,3,1,8,0,Indiranagar,Apartment,228.38,Vikram Singh,9145022808,vikram.singh@gmail.com
+4956,5,3,4,0,BTM,Apartment,722.84,Priya Rao,9141841037,priya.rao@gmail.com
+1046,3,1,9,2,BTM,Villa,158.94,Priya Rao,9551032257,priya.rao@gmail.com
+1201,5,1,5,2,Yelahanka,Apartment,144.6,Rajesh Kumar,9439069867,rajesh.kumar@gmail.com
+3564,5,1,0,0,Electronic City,Independent House,347.76,Meera Joshi,9168513357,meera.joshi@gmail.com
+4389,5,5,4,3,Indiranagar,Villa,998.58,Sneha Patil,9720588080,sneha.patil@gmail.com
+693,1,5,12,2,Whitefield,Apartment,112.95,Sneha Patil,9590841432,sneha.patil@gmail.com
+4702,2,1,2,0,Whitefield,Independent House,716.3,Arjun Reddy,9950206579,arjun.reddy@gmail.com
+4578,2,4,17,0,Indiranagar,Independent House,1016.66,Priya Rao,9897531527,priya.rao@gmail.com
+2878,2,1,4,2,Electronic City,Apartment,269.02,Priya Rao,9233908590,priya.rao@gmail.com
+4917,1,1,17,2,Yelahanka,Apartment,490.2,Vikram Singh,9515926674,vikram.singh@gmail.com
+4939,4,2,3,1,Marathahalli,Villa,615.18,Vikram Singh,9588241153,vikram.singh@gmail.com
+1420,3,4,13,1,BTM,Villa,215.3,Rajesh Kumar,9805719156,rajesh.kumar@gmail.com
+2766,4,1,8,2,Electronic City,Villa,266.94,Meera Joshi,9155423377,meera.joshi@gmail.com
+4932,5,1,10,1,Indiranagar,Apartment,1107.04,Priya Rao,9966862859,priya.rao@gmail.com
+2855,1,2,16,0,Marathahalli,Independent House,343.6,Meera Joshi,9314833267,meera.joshi@gmail.com
+2441,4,4,17,1,Indiranagar,Independent House,556.52,Rajesh Kumar,9783260743,rajesh.kumar@gmail.com
+3532,1,4,4,2,Whitefield,Apartment,540.8,Anil Sharma,9498958863,anil.sharma@gmail.com
+1576,2,2,15,3,Yelahanka,Villa,164.1,Vikram Singh,9013008724,vikram.singh@gmail.com
+1163,5,4,6,1,Indiranagar,Independent House,285.86,Arjun Reddy,9477818432,arjun.reddy@gmail.com
+1880,2,2,20,1,Yelahanka,Apartment,192.0,Anil Sharma,9287175549,anil.sharma@gmail.com
+4177,5,2,1,0,Koramangala,Villa,863.9,Vikram Singh,9736934820,vikram.singh@gmail.com
+2507,5,1,18,2,Marathahalli,Independent House,318.84,Priya Rao,9977698771,priya.rao@gmail.com
+2671,2,5,7,0,Koramangala,Apartment,550.7,Anil Sharma,9084678762,anil.sharma@gmail.com
+2531,1,5,12,2,Electronic City,Apartment,236.79,Sneha Patil,9703837649,sneha.patil@gmail.com
+3114,3,1,1,2,Koramangala,Independent House,639.3,Vikram Singh,9469665027,vikram.singh@gmail.com
+1806,2,2,20,1,Marathahalli,Apartment,220.72,Priya Rao,9475291430,priya.rao@gmail.com
+2743,5,3,19,3,Koramangala,Apartment,570.1,Rajesh Kumar,9119170222,rajesh.kumar@gmail.com
+1650,3,2,19,2,Indiranagar,Villa,372.5,Arjun Reddy,9238502806,arjun.reddy@gmail.com
+2335,2,3,7,3,Yelahanka,Independent House,246.0,Priya Rao,9868732535,priya.rao@gmail.com
+1258,2,1,12,1,Electronic City,Independent House,119.22,Arjun Reddy,9729475325,arjun.reddy@gmail.com
+1475,4,3,3,0,Koramangala,Apartment,319.5,Priya Rao,9462383141,priya.rao@gmail.com
+2299,3,4,15,1,Whitefield,Villa,360.35,Arjun Reddy,9444108817,arjun.reddy@gmail.com
+4740,3,4,0,2,Marathahalli,Apartment,591.8,Sneha Patil,9717948444,sneha.patil@gmail.com
+1276,5,4,9,0,Marathahalli,Apartment,181.62,Rajesh Kumar,9263620487,rajesh.kumar@gmail.com
+4192,4,4,3,1,Yelahanka,Independent House,445.7,Rajesh Kumar,9433972110,rajesh.kumar@gmail.com
+3669,2,3,4,2,Marathahalli,Independent House,454.28,Sneha Patil,9662404932,sneha.patil@gmail.com
+3729,4,1,16,3,Yelahanka,Independent House,386.9,Vikram Singh,9773137729,vikram.singh@gmail.com
+3405,3,2,4,1,HSR Layout,Apartment,595.85,Anil Sharma,9354210184,anil.sharma@gmail.com
+1021,4,3,11,0,Yelahanka,Villa,122.6,Anil Sharma,9505997718,anil.sharma@gmail.com
+2113,2,1,13,1,Whitefield,Apartment,322.45,Arjun Reddy,9400442633,arjun.reddy@gmail.com
+1933,3,3,12,0,HSR Layout,Apartment,343.61,Sneha Patil,9087896207,sneha.patil@gmail.com
+2329,2,4,9,1,Yelahanka,Apartment,246.4,Vikram Singh,9542074631,vikram.singh@gmail.com
+3672,4,5,18,3,Marathahalli,Independent House,461.64,Meera Joshi,9941401082,meera.joshi@gmail.com
+905,3,1,14,3,Koramangala,Independent House,191.0,Sneha Patil,9618246289,sneha.patil@gmail.com
+1842,3,3,1,1,BTM,Villa,278.38,Meera Joshi,9494343046,meera.joshi@gmail.com
+1993,4,3,4,3,BTM,Independent House,303.02,Sneha Patil,9098097101,sneha.patil@gmail.com
+4827,5,2,10,3,Yelahanka,Independent House,506.7,Priya Rao,9193601778,priya.rao@gmail.com
+932,2,5,0,1,BTM,Apartment,150.48,Arjun Reddy,9695512926,arjun.reddy@gmail.com
+4136,4,5,13,0,Indiranagar,Independent House,933.42,Anil Sharma,9048804372,anil.sharma@gmail.com
+1210,5,2,6,2,Indiranagar,Apartment,292.2,Priya Rao,9302228577,priya.rao@gmail.com
+4564,3,1,11,1,Koramangala,Villa,924.3,Rajesh Kumar,9924434129,rajesh.kumar@gmail.com
+4533,5,5,11,2,BTM,Apartment,664.12,Meera Joshi,9076890307,meera.joshi@gmail.com
+3206,4,1,2,2,Marathahalli,Villa,405.72,Rajesh Kumar,9195403701,rajesh.kumar@gmail.com
+4738,3,2,19,1,Yelahanka,Villa,483.3,Arjun Reddy,9857855160,arjun.reddy@gmail.com
+3265,5,1,11,0,Electronic City,Independent House,315.35,Meera Joshi,9719919816,meera.joshi@gmail.com
+1299,2,1,9,1,BTM,Villa,189.36,Meera Joshi,9607138957,meera.joshi@gmail.com
+2837,2,2,7,0,BTM,Villa,407.68,Anil Sharma,9409369740,anil.sharma@gmail.com
+2977,2,3,7,1,BTM,Independent House,429.28,Anil Sharma,9733487948,anil.sharma@gmail.com
+4050,3,1,4,3,Yelahanka,Villa,420.0,Arjun Reddy,9318864890,arjun.reddy@gmail.com
+1122,4,4,10,2,Yelahanka,Apartment,135.2,Meera Joshi,9382556549,meera.joshi@gmail.com
+1622,3,2,20,1,Whitefield,Independent House,252.3,Rajesh Kumar,9465241292,rajesh.kumar@gmail.com
+3665,5,2,13,0,HSR Layout,Apartment,645.55,Priya Rao,9427498035,priya.rao@gmail.com
+2684,1,3,15,2,Yelahanka,Independent House,271.9,Sneha Patil,9191874824,sneha.patil@gmail.com
+3892,5,5,8,0,Yelahanka,Independent House,420.2,Rajesh Kumar,9905515457,rajesh.kumar@gmail.com
+880,5,3,9,3,Koramangala,Apartment,202.5,Rajesh Kumar,9895133073,rajesh.kumar@gmail.com
+1627,5,1,3,0,Whitefield,Villa,269.55,Vikram Singh,9116052348,vikram.singh@gmail.com
+2354,1,1,17,3,Marathahalli,Villa,280.98,Meera Joshi,9884145274,meera.joshi@gmail.com
+1434,5,1,7,1,BTM,Independent House,224.26,Rajesh Kumar,9579711478,rajesh.kumar@gmail.com
+2531,3,1,9,0,Koramangala,Apartment,518.7,Priya Rao,9263650668,priya.rao@gmail.com
+4340,3,1,0,3,Electronic City,Independent House,407.6,Arjun Reddy,9947454616,arjun.reddy@gmail.com
+3679,1,4,19,2,BTM,Independent House,518.56,Anil Sharma,9945575556,anil.sharma@gmail.com
+2374,4,2,3,0,Yelahanka,Independent House,259.9,Anil Sharma,9402754422,anil.sharma@gmail.com
+4865,5,2,20,0,Marathahalli,Independent House,602.8,Meera Joshi,9492036199,meera.joshi@gmail.com
+1916,3,2,0,2,Indiranagar,Villa,440.52,Rajesh Kumar,9274718579,rajesh.kumar@gmail.com
+3864,2,5,16,1,Koramangala,Apartment,784.8,Vikram Singh,9114033663,vikram.singh@gmail.com
+4023,3,2,16,3,Indiranagar,Villa,896.06,Anil Sharma,9940224228,anil.sharma@gmail.com
+1309,5,4,0,2,BTM,Independent House,216.26,Arjun Reddy,9753675161,arjun.reddy@gmail.com
+2034,3,1,17,2,Koramangala,Independent House,415.3,Arjun Reddy,9468925186,arjun.reddy@gmail.com
+4779,3,5,6,3,Whitefield,Villa,738.85,Meera Joshi,9370772950,meera.joshi@gmail.com
+1269,5,2,11,0,Yelahanka,Apartment,150.4,Anil Sharma,9877171814,anil.sharma@gmail.com
+4323,2,2,10,2,Marathahalli,Villa,527.76,Vikram Singh,9808314900,vikram.singh@gmail.com
+724,2,2,13,3,Whitefield,Villa,116.1,Anil Sharma,9043000696,anil.sharma@gmail.com
+3168,4,1,13,2,HSR Layout,Villa,554.06,Vikram Singh,9086295962,vikram.singh@gmail.com
+2548,2,5,1,1,Marathahalli,Apartment,325.26,Priya Rao,9323313686,priya.rao@gmail.com
+1680,3,3,15,1,HSR Layout,Independent House,299.1,Vikram Singh,9236196559,vikram.singh@gmail.com
+4185,3,5,17,0,Whitefield,Villa,644.25,Arjun Reddy,9517673569,arjun.reddy@gmail.com
+3622,5,5,13,0,Yelahanka,Apartment,390.7,Rajesh Kumar,9862155440,rajesh.kumar@gmail.com
+2136,1,1,1,1,Indiranagar,Independent House,476.42,Anil Sharma,9438570528,anil.sharma@gmail.com
+4263,5,5,16,0,BTM,Apartment,623.82,Rajesh Kumar,9735503093,rajesh.kumar@gmail.com
+1261,2,2,13,2,Yelahanka,Villa,133.6,Rajesh Kumar,9119160500,rajesh.kumar@gmail.com
+742,5,1,4,0,Yelahanka,Villa,99.2,Sneha Patil,9445700785,sneha.patil@gmail.com
+4206,1,4,1,3,BTM,Apartment,601.34,Vikram Singh,9630390968,vikram.singh@gmail.com
+4972,5,2,2,2,Indiranagar,Apartment,1121.84,Anil Sharma,9087113924,anil.sharma@gmail.com
+4290,5,4,6,3,Marathahalli,Villa,544.8,Arjun Reddy,9081680159,arjun.reddy@gmail.com
+614,5,4,19,0,HSR Layout,Apartment,127.88,Sneha Patil,9302280786,sneha.patil@gmail.com
+4088,3,2,7,2,Yelahanka,Villa,424.3,Anil Sharma,9024666234,anil.sharma@gmail.com
+2573,1,3,2,0,Electronic City,Independent House,241.57,Rajesh Kumar,9523033754,rajesh.kumar@gmail.com
+2110,5,4,16,2,HSR Layout,Apartment,383.7,Arjun Reddy,9282728643,arjun.reddy@gmail.com
+2861,2,5,16,1,Yelahanka,Villa,298.1,Vikram Singh,9455953943,vikram.singh@gmail.com
+3434,4,5,12,3,BTM,Apartment,504.76,Priya Rao,9817263450,priya.rao@gmail.com
+2418,3,2,7,2,Electronic City,Apartment,233.12,Meera Joshi,9326257993,meera.joshi@gmail.com
+2811,5,1,11,0,Whitefield,Independent House,443.15,Vikram Singh,9850840431,vikram.singh@gmail.com
+1465,3,2,20,3,Koramangala,Villa,302.0,Priya Rao,9671300555,priya.rao@gmail.com
+4729,1,4,14,1,BTM,Apartment,668.06,Anil Sharma,9191636128,anil.sharma@gmail.com
+3236,5,1,8,0,Koramangala,Villa,670.2,Rajesh Kumar,9500596509,rajesh.kumar@gmail.com
+3899,5,5,12,1,Yelahanka,Independent House,418.9,Meera Joshi,9833711751,meera.joshi@gmail.com
+2499,1,2,3,3,Koramangala,Apartment,507.3,Meera Joshi,9762082787,meera.joshi@gmail.com
+3491,4,2,5,1,Marathahalli,Villa,440.42,Anil Sharma,9503090598,anil.sharma@gmail.com
+4669,5,2,20,0,Whitefield,Villa,719.35,Rajesh Kumar,9877706467,rajesh.kumar@gmail.com
+2297,3,3,7,1,Indiranagar,Independent House,522.84,Sneha Patil,9997933446,sneha.patil@gmail.com
+4212,3,2,9,3,Yelahanka,Villa,435.7,Arjun Reddy,9363325000,arjun.reddy@gmail.com
+2764,2,2,3,2,HSR Layout,Villa,482.38,Meera Joshi,9192723320,meera.joshi@gmail.com
+4981,4,3,5,1,Whitefield,Apartment,770.65,Anil Sharma,9564832164,anil.sharma@gmail.com
+1158,3,5,7,2,Whitefield,Independent House,195.2,Meera Joshi,9393561814,meera.joshi@gmail.com
+4726,2,5,3,0,HSR Layout,Apartment,821.92,Sneha Patil,9528679271,sneha.patil@gmail.com
+4783,4,3,7,1,Marathahalli,Villa,596.46,Arjun Reddy,9458334188,arjun.reddy@gmail.com
+2987,1,2,14,0,Koramangala,Apartment,599.4,Priya Rao,9934669424,priya.rao@gmail.com
+3703,3,2,0,3,Electronic City,Independent House,352.27,Sneha Patil,9097792236,sneha.patil@gmail.com
+662,2,1,11,3,HSR Layout,Villa,119.04,Anil Sharma,9494780684,anil.sharma@gmail.com
+4949,1,5,10,1,Electronic City,Villa,455.41,Anil Sharma,9676903999,anil.sharma@gmail.com
+2669,1,5,3,2,Indiranagar,Independent House,600.68,Meera Joshi,9139298792,meera.joshi@gmail.com
+679,1,2,18,1,Whitefield,Independent House,101.85,Rajesh Kumar,9056539367,rajesh.kumar@gmail.com
+1243,2,1,13,1,Indiranagar,Apartment,278.96,Arjun Reddy,9737722284,arjun.reddy@gmail.com
+4855,3,5,8,0,Whitefield,Villa,749.25,Arjun Reddy,9109884804,arjun.reddy@gmail.com
+896,5,4,20,3,Whitefield,Apartment,157.4,Rajesh Kumar,9502868526,rajesh.kumar@gmail.com
+1225,4,2,6,3,Electronic City,Independent House,131.25,Arjun Reddy,9618227083,arjun.reddy@gmail.com
+1188,2,5,10,0,HSR Layout,Villa,216.96,Priya Rao,9291386106,priya.rao@gmail.com
+1223,3,4,6,2,Marathahalli,Apartment,166.76,Rajesh Kumar,9983847537,rajesh.kumar@gmail.com
+2082,4,5,17,0,Koramangala,Independent House,437.9,Sneha Patil,9788592174,sneha.patil@gmail.com
+818,3,5,5,2,Whitefield,Villa,145.2,Rajesh Kumar,9881692464,rajesh.kumar@gmail.com
+4000,5,5,1,0,BTM,Independent House,594.5,Vikram Singh,9437930093,vikram.singh@gmail.com
+622,2,5,10,3,Koramangala,Apartment,139.4,Sneha Patil,9206437939,sneha.patil@gmail.com
+1319,2,5,18,2,HSR Layout,Independent House,235.23,Anil Sharma,9959092648,anil.sharma@gmail.com
+4079,3,4,13,2,Electronic City,Independent House,383.61,Sneha Patil,9644125901,sneha.patil@gmail.com
+1525,1,1,19,1,Yelahanka,Villa,150.0,Meera Joshi,9004353284,meera.joshi@gmail.com
+3695,3,2,4,3,Indiranagar,Villa,829.9,Arjun Reddy,9532919030,arjun.reddy@gmail.com
+2377,1,4,16,0,Indiranagar,Villa,527.94,Vikram Singh,9430969163,vikram.singh@gmail.com
+1224,4,5,13,1,BTM,Independent House,194.86,Sneha Patil,9044427462,sneha.patil@gmail.com
+1121,3,4,2,1,Koramangala,Villa,246.2,Priya Rao,9800891054,priya.rao@gmail.com
+1786,3,5,15,0,Whitefield,Independent House,285.4,Meera Joshi,9372263047,meera.joshi@gmail.com
+1203,2,1,4,3,Indiranagar,Independent House,274.66,Anil Sharma,9379901436,anil.sharma@gmail.com
+1900,4,5,16,1,Marathahalli,Independent House,250.0,Priya Rao,9980993507,priya.rao@gmail.com
+4670,2,3,17,3,Koramangala,Apartment,941.5,Meera Joshi,9242953016,meera.joshi@gmail.com
+3410,1,4,2,1,Marathahalli,Independent House,421.2,Sneha Patil,9753322307,sneha.patil@gmail.com
+1662,4,5,9,2,Yelahanka,Villa,191.7,Meera Joshi,9855840721,meera.joshi@gmail.com
+4237,5,5,10,3,Whitefield,Apartment,665.55,Vikram Singh,9998799246,vikram.singh@gmail.com
+1166,5,2,16,3,BTM,Villa,184.24,Priya Rao,9408417404,priya.rao@gmail.com
+3844,4,3,0,1,HSR Layout,Independent House,679.48,Arjun Reddy,9600204826,arjun.reddy@gmail.com
+2833,2,3,3,3,Yelahanka,Independent House,297.8,Rajesh Kumar,9816307788,rajesh.kumar@gmail.com
+1969,4,2,11,2,Electronic City,Apartment,195.71,Priya Rao,9018436089,priya.rao@gmail.com
+4241,2,3,14,2,Indiranagar,Independent House,942.02,Vikram Singh,9612427866,vikram.singh@gmail.com
+2069,3,1,18,2,Koramangala,Apartment,421.8,Sneha Patil,9357249155,sneha.patil@gmail.com
+4609,4,2,13,0,Electronic City,Independent House,432.31,Arjun Reddy,9866985402,arjun.reddy@gmail.com
+3143,4,4,0,3,Whitefield,Independent House,499.45,Arjun Reddy,9662263095,arjun.reddy@gmail.com
+2037,4,1,10,0,Whitefield,Apartment,322.55,Rajesh Kumar,9286455015,rajesh.kumar@gmail.com
+4834,4,3,16,3,HSR Layout,Apartment,839.78,Priya Rao,9268455439,priya.rao@gmail.com
+812,1,4,1,2,HSR Layout,Villa,150.54,Meera Joshi,9711280638,meera.joshi@gmail.com
+1232,4,4,8,3,Marathahalli,Independent House,171.84,Priya Rao,9197996331,priya.rao@gmail.com
+2016,5,2,3,0,Whitefield,Independent House,329.9,Arjun Reddy,9324407141,arjun.reddy@gmail.com
+2841,3,2,13,0,Yelahanka,Independent House,296.6,Meera Joshi,9551405031,meera.joshi@gmail.com
+4366,4,5,19,0,HSR Layout,Independent House,762.72,Arjun Reddy,9931301078,arjun.reddy@gmail.com
+2744,2,1,1,2,Koramangala,Independent House,560.3,Anil Sharma,9237967970,anil.sharma@gmail.com
+3350,3,3,10,2,Electronic City,Independent House,317.5,Sneha Patil,9016867276,sneha.patil@gmail.com
+1018,2,5,11,2,BTM,Villa,157.02,Sneha Patil,9929339028,sneha.patil@gmail.com
+1743,5,5,10,3,Marathahalli,Apartment,239.16,Vikram Singh,9571832768,vikram.singh@gmail.com
+2664,3,1,6,3,Koramangala,Independent House,546.8,Vikram Singh,9241639809,vikram.singh@gmail.com
+2931,4,4,20,0,Indiranagar,Apartment,662.82,Rajesh Kumar,9240136476,rajesh.kumar@gmail.com
+2447,2,5,15,0,Koramangala,Villa,501.9,Meera Joshi,9011588539,meera.joshi@gmail.com
+617,1,4,12,3,Yelahanka,Independent House,68.7,Sneha Patil,9960250138,sneha.patil@gmail.com
+632,3,1,15,2,HSR Layout,Villa,116.94,Anil Sharma,9542153462,anil.sharma@gmail.com
+1120,3,1,18,0,Whitefield,Apartment,176.0,Meera Joshi,9286538803,meera.joshi@gmail.com
+4336,3,4,17,1,Indiranagar,Villa,968.42,Arjun Reddy,9027232048,arjun.reddy@gmail.com
+3115,1,4,18,1,Whitefield,Independent House,471.25,Meera Joshi,9523341083,meera.joshi@gmail.com
+2098,4,1,15,0,Electronic City,Villa,203.32,Meera Joshi,9824719626,meera.joshi@gmail.com
+3304,4,2,8,3,BTM,Villa,482.56,Rajesh Kumar,9993006329,rajesh.kumar@gmail.com
+2353,1,2,7,3,Koramangala,Independent House,476.1,Meera Joshi,9090683008,meera.joshi@gmail.com
+3855,5,5,9,3,Marathahalli,Villa,493.1,Arjun Reddy,9210235763,arjun.reddy@gmail.com
+1397,5,1,1,2,Indiranagar,Villa,333.84,Vikram Singh,9604245741,vikram.singh@gmail.com
+2430,3,5,10,0,BTM,Independent House,360.2,Priya Rao,9058908236,priya.rao@gmail.com
+1109,4,5,9,1,Yelahanka,Independent House,136.4,Sneha Patil,9083900289,sneha.patil@gmail.com
+3506,2,2,4,0,Marathahalli,Villa,432.72,Meera Joshi,9209248665,meera.joshi@gmail.com
+4156,1,5,6,3,HSR Layout,Independent House,718.52,Meera Joshi,9935918842,meera.joshi@gmail.com
+4258,1,1,16,3,BTM,Independent House,595.12,Meera Joshi,9385943907,meera.joshi@gmail.com
+4011,1,3,8,0,Koramangala,Independent House,809.2,Vikram Singh,9316942639,vikram.singh@gmail.com
+1681,4,2,10,3,Yelahanka,Independent House,187.1,Arjun Reddy,9838705339,arjun.reddy@gmail.com
+1834,2,5,0,0,Koramangala,Apartment,386.8,Arjun Reddy,9884753140,arjun.reddy@gmail.com
+2446,5,5,15,0,Marathahalli,Apartment,321.02,Meera Joshi,9346477437,meera.joshi@gmail.com
+790,3,3,9,3,Marathahalli,Villa,111.3,Anil Sharma,9198333322,anil.sharma@gmail.com
+2589,4,3,5,1,Electronic City,Independent House,256.51,Priya Rao,9650281380,priya.rao@gmail.com
+1526,5,4,4,3,HSR Layout,Independent House,290.42,Arjun Reddy,9567186823,arjun.reddy@gmail.com
+1589,5,2,10,3,Electronic City,Villa,167.01,Sneha Patil,9144924726,sneha.patil@gmail.com
+4450,1,3,19,3,Indiranagar,Apartment,980.5,Arjun Reddy,9094494034,arjun.reddy@gmail.com
+1505,4,1,19,2,Electronic City,Independent House,147.95,Meera Joshi,9312625310,meera.joshi@gmail.com
+3498,4,1,6,2,Yelahanka,Independent House,368.8,Meera Joshi,9631007174,meera.joshi@gmail.com
+1233,2,5,5,1,Indiranagar,Apartment,288.76,Priya Rao,9241460965,priya.rao@gmail.com
+3243,5,4,10,0,Indiranagar,Villa,741.46,Arjun Reddy,9658367489,arjun.reddy@gmail.com
+3988,3,3,6,1,Koramangala,Apartment,815.6,Anil Sharma,9775544171,anil.sharma@gmail.com
+2844,5,1,9,1,Yelahanka,Villa,306.9,Anil Sharma,9184582981,anil.sharma@gmail.com
+2478,4,1,4,2,Yelahanka,Apartment,267.8,Vikram Singh,9575517669,vikram.singh@gmail.com
+1823,1,3,17,0,Yelahanka,Villa,184.8,Priya Rao,9246641118,priya.rao@gmail.com
+1475,1,2,16,2,Yelahanka,Apartment,148.5,Sneha Patil,9777031726,sneha.patil@gmail.com
+661,2,1,17,3,Electronic City,Apartment,62.99,Meera Joshi,9492682475,meera.joshi@gmail.com
+3611,3,2,1,3,BTM,Independent House,524.04,Rajesh Kumar,9549974542,rajesh.kumar@gmail.com
+3696,4,3,19,3,Whitefield,Independent House,570.9,Anil Sharma,9741823628,anil.sharma@gmail.com
+1256,2,5,9,2,Yelahanka,Independent House,141.1,Rajesh Kumar,9917937114,rajesh.kumar@gmail.com
+622,1,5,6,1,HSR Layout,Apartment,117.74,Anil Sharma,9079189480,anil.sharma@gmail.com
+1102,3,2,15,3,HSR Layout,Apartment,198.84,Meera Joshi,9277354184,meera.joshi@gmail.com
+2364,1,4,20,0,Whitefield,Independent House,357.6,Arjun Reddy,9465852155,arjun.reddy@gmail.com
+1796,4,2,11,1,Koramangala,Villa,377.7,Meera Joshi,9992245511,meera.joshi@gmail.com
+4111,5,3,18,0,Whitefield,Independent House,638.65,Anil Sharma,9765932117,anil.sharma@gmail.com
+2468,2,3,12,2,BTM,Independent House,355.52,Sneha Patil,9492609671,sneha.patil@gmail.com
+4850,1,4,13,0,HSR Layout,Apartment,831.0,Vikram Singh,9852402982,vikram.singh@gmail.com
+4517,4,1,10,1,Whitefield,Independent House,694.55,Vikram Singh,9627971392,vikram.singh@gmail.com
+1719,3,5,5,3,Koramangala,Apartment,366.3,Vikram Singh,9582447644,vikram.singh@gmail.com
+3996,5,3,19,0,BTM,Independent House,580.94,Meera Joshi,9955899877,meera.joshi@gmail.com
+3715,3,3,8,2,Indiranagar,Villa,834.3,Rajesh Kumar,9955263418,rajesh.kumar@gmail.com
+1837,1,5,4,3,Marathahalli,Apartment,233.44,Priya Rao,9355080041,priya.rao@gmail.com
+787,2,3,6,3,Electronic City,Independent House,83.83,Vikram Singh,9983823036,vikram.singh@gmail.com
+4542,2,3,11,3,Whitefield,Independent House,691.8,Arjun Reddy,9188410229,arjun.reddy@gmail.com
+1443,4,3,13,2,Whitefield,Apartment,235.95,Meera Joshi,9734899861,meera.joshi@gmail.com
+1391,1,2,19,3,Yelahanka,Independent House,138.6,Rajesh Kumar,9298641752,rajesh.kumar@gmail.com
+2743,1,3,1,1,BTM,Independent House,394.52,Meera Joshi,9409287100,meera.joshi@gmail.com
+3863,1,4,2,2,Electronic City,Apartment,359.67,Rajesh Kumar,9427743833,rajesh.kumar@gmail.com
+3621,1,4,0,2,Marathahalli,Apartment,447.52,Vikram Singh,9446083906,vikram.singh@gmail.com
+1602,1,1,11,0,Koramangala,Independent House,321.9,Anil Sharma,9515634864,anil.sharma@gmail.com
+3761,2,2,4,1,Electronic City,Apartment,350.49,Arjun Reddy,9419353306,arjun.reddy@gmail.com
+4872,2,5,3,2,BTM,Villa,700.58,Anil Sharma,9167568556,anil.sharma@gmail.com
+1560,2,1,7,2,Marathahalli,Villa,195.7,Sneha Patil,9935932885,sneha.patil@gmail.com
+2294,2,5,1,2,Indiranagar,Villa,524.18,Vikram Singh,9369272254,vikram.singh@gmail.com
+1919,5,5,1,3,BTM,Apartment,303.16,Vikram Singh,9448308482,vikram.singh@gmail.com
+2995,2,5,20,2,Marathahalli,Villa,369.4,Vikram Singh,9806473711,vikram.singh@gmail.com
+4564,3,4,18,0,Whitefield,Villa,698.6,Anil Sharma,9732802813,anil.sharma@gmail.com
+835,4,2,5,3,Koramangala,Independent House,188.5,Priya Rao,9620999414,priya.rao@gmail.com
+2135,4,5,17,1,Whitefield,Independent House,341.75,Priya Rao,9249112412,priya.rao@gmail.com
+3464,5,3,4,0,Yelahanka,Independent House,375.4,Priya Rao,9286473914,priya.rao@gmail.com
+2307,1,1,16,2,Koramangala,Villa,460.4,Sneha Patil,9381180325,sneha.patil@gmail.com
+1140,2,3,17,0,BTM,Independent House,167.1,Anil Sharma,9781616583,anil.sharma@gmail.com
+4429,1,3,1,0,Indiranagar,Independent House,984.88,Vikram Singh,9648052202,vikram.singh@gmail.com
+2716,2,4,0,3,Indiranagar,Villa,615.52,Anil Sharma,9509839078,anil.sharma@gmail.com
+1360,1,1,20,0,Koramangala,Independent House,269.0,Vikram Singh,9015035737,vikram.singh@gmail.com
+4610,3,3,5,3,Yelahanka,Apartment,479.5,Rajesh Kumar,9480094890,rajesh.kumar@gmail.com
+3356,1,1,18,1,Yelahanka,Villa,333.6,Anil Sharma,9002638938,anil.sharma@gmail.com
+4295,3,2,7,1,Whitefield,Apartment,659.75,Anil Sharma,9308074338,anil.sharma@gmail.com
+3758,5,3,4,3,Marathahalli,Independent House,479.96,Rajesh Kumar,9057221624,rajesh.kumar@gmail.com
+4826,5,4,13,2,BTM,Independent House,702.14,Priya Rao,9403282120,priya.rao@gmail.com
+4719,1,2,7,1,HSR Layout,Independent House,807.73,Meera Joshi,9395927559,meera.joshi@gmail.com
+1399,1,3,5,3,Koramangala,Villa,288.3,Rajesh Kumar,9937575364,rajesh.kumar@gmail.com
+2937,2,2,12,0,Indiranagar,Independent House,654.14,Meera Joshi,9681420914,meera.joshi@gmail.com
+4787,2,4,19,2,Whitefield,Independent House,726.55,Sneha Patil,9027909137,sneha.patil@gmail.com
+4195,1,1,17,0,Whitefield,Villa,627.75,Vikram Singh,9835548539,vikram.singh@gmail.com
+2411,2,5,4,0,Yelahanka,Apartment,259.1,Priya Rao,9600748582,priya.rao@gmail.com
+1577,5,1,10,2,Yelahanka,Apartment,179.7,Priya Rao,9014496195,priya.rao@gmail.com
+2090,5,4,4,1,Yelahanka,Villa,240.0,Rajesh Kumar,9820524543,rajesh.kumar@gmail.com
+4111,5,1,19,2,HSR Layout,Apartment,716.37,Anil Sharma,9687287091,anil.sharma@gmail.com
+1648,3,3,12,2,HSR Layout,Apartment,295.16,Priya Rao,9928762171,priya.rao@gmail.com
+2272,3,5,15,0,Koramangala,Apartment,471.9,Rajesh Kumar,9288536738,rajesh.kumar@gmail.com
+2499,3,1,5,2,Yelahanka,Apartment,264.4,Sneha Patil,9799626727,sneha.patil@gmail.com
+2652,1,5,18,0,HSR Layout,Apartment,456.84,Meera Joshi,9675295734,meera.joshi@gmail.com
+845,2,5,13,1,Indiranagar,Independent House,199.4,Rajesh Kumar,9448452672,rajesh.kumar@gmail.com
+1342,5,1,12,0,Electronic City,Apartment,141.78,Sneha Patil,9312336283,sneha.patil@gmail.com
+2315,5,5,16,1,BTM,Apartment,351.1,Vikram Singh,9095839901,vikram.singh@gmail.com
+3477,5,3,11,2,Yelahanka,Apartment,373.2,Anil Sharma,9209198790,anil.sharma@gmail.com
+3414,3,1,17,1,Marathahalli,Apartment,418.18,Rajesh Kumar,9169505200,rajesh.kumar@gmail.com
+4188,4,4,1,2,Indiranagar,Apartment,948.86,Arjun Reddy,9990349209,arjun.reddy@gmail.com
+946,2,3,17,1,Electronic City,Villa,92.64,Sneha Patil,9307162576,sneha.patil@gmail.com
+3842,2,3,5,0,Whitefield,Apartment,589.8,Arjun Reddy,9939866104,arjun.reddy@gmail.com
+4025,5,3,11,3,Indiranagar,Apartment,911.0,Arjun Reddy,9550766067,arjun.reddy@gmail.com
+1321,1,3,16,1,Electronic City,Apartment,121.89,Anil Sharma,9525024169,anil.sharma@gmail.com
+4359,4,5,2,2,Indiranagar,Apartment,987.98,Vikram Singh,9309515902,vikram.singh@gmail.com
+1553,3,5,3,1,Whitefield,Independent House,256.45,Priya Rao,9775684032,priya.rao@gmail.com
+3362,4,2,18,0,Koramangala,Apartment,687.4,Arjun Reddy,9269430192,arjun.reddy@gmail.com
+3258,5,2,5,3,HSR Layout,Villa,580.36,Meera Joshi,9041111693,meera.joshi@gmail.com
+2159,2,3,17,0,Koramangala,Apartment,439.3,Vikram Singh,9153151907,vikram.singh@gmail.com
+3660,3,2,5,2,Whitefield,Villa,565.5,Priya Rao,9850021522,priya.rao@gmail.com
+1712,3,3,2,0,Koramangala,Villa,362.4,Vikram Singh,9773369631,vikram.singh@gmail.com
+1531,3,5,7,1,Marathahalli,Independent House,205.22,Rajesh Kumar,9977310566,rajesh.kumar@gmail.com
+3606,2,3,12,3,Koramangala,Apartment,731.2,Arjun Reddy,9547952926,arjun.reddy@gmail.com
+4905,1,5,19,1,Electronic City,Independent House,446.95,Priya Rao,9749880183,priya.rao@gmail.com
+4465,2,5,12,1,Electronic City,Apartment,415.85,Vikram Singh,9381153198,vikram.singh@gmail.com
+2491,4,1,14,3,Koramangala,Villa,513.2,Priya Rao,9011815852,priya.rao@gmail.com
+3812,3,3,0,0,Yelahanka,Villa,402.2,Arjun Reddy,9598724044,arjun.reddy@gmail.com
+4958,1,2,17,1,Whitefield,Independent House,744.2,Priya Rao,9287180247,priya.rao@gmail.com
+1247,1,3,12,2,Marathahalli,Independent House,154.64,Priya Rao,9097991038,priya.rao@gmail.com
+3429,3,4,20,2,Indiranagar,Independent House,767.38,Vikram Singh,9886533539,vikram.singh@gmail.com
+2056,5,4,14,0,Yelahanka,Villa,231.6,Anil Sharma,9547143810,anil.sharma@gmail.com
+3923,4,4,20,1,Koramangala,Villa,802.6,Arjun Reddy,9570722449,arjun.reddy@gmail.com
+1945,1,4,8,1,Electronic City,Villa,184.05,Sneha Patil,9948006076,sneha.patil@gmail.com
+4904,1,2,10,3,Indiranagar,Apartment,1082.88,Rajesh Kumar,9649693999,rajesh.kumar@gmail.com
+4184,5,3,3,3,Indiranagar,Villa,949.98,Anil Sharma,9309577531,anil.sharma@gmail.com
+3876,2,5,10,0,HSR Layout,Independent House,673.92,Anil Sharma,9512629824,anil.sharma@gmail.com
+2169,1,1,18,1,Indiranagar,Villa,475.18,Priya Rao,9901612314,priya.rao@gmail.com
+3023,2,5,19,0,Koramangala,Independent House,615.1,Arjun Reddy,9476140703,arjun.reddy@gmail.com
+2069,4,5,20,2,HSR Layout,Villa,371.73,Rajesh Kumar,9230302372,rajesh.kumar@gmail.com
+4342,5,1,3,0,HSR Layout,Apartment,763.64,Arjun Reddy,9112159807,arjun.reddy@gmail.com
+4013,5,2,4,1,Koramangala,Independent House,829.6,Meera Joshi,9771731217,meera.joshi@gmail.com
+3917,2,5,1,3,BTM,Villa,567.88,Rajesh Kumar,9144566419,rajesh.kumar@gmail.com
+4715,5,5,7,3,Marathahalli,Independent House,597.3,Sneha Patil,9833662990,sneha.patil@gmail.com
+1470,2,2,0,3,HSR Layout,Independent House,263.9,Meera Joshi,9440195579,meera.joshi@gmail.com
+4831,2,1,16,0,Electronic City,Apartment,438.79,Arjun Reddy,9231300173,arjun.reddy@gmail.com
+1393,2,4,20,2,Koramangala,Independent House,286.6,Priya Rao,9793364247,priya.rao@gmail.com
+4758,4,5,8,2,Indiranagar,Apartment,1072.76,Meera Joshi,9566418064,meera.joshi@gmail.com
+2643,1,4,3,3,Whitefield,Independent House,407.95,Sneha Patil,9731181910,sneha.patil@gmail.com
+3400,2,2,11,2,Marathahalli,Independent House,416.5,Meera Joshi,9406459945,meera.joshi@gmail.com
+2899,2,5,13,0,Yelahanka,Independent House,303.4,Rajesh Kumar,9105551917,rajesh.kumar@gmail.com
+4255,5,1,16,0,Yelahanka,Apartment,444.5,Rajesh Kumar,9209801829,rajesh.kumar@gmail.com
+815,3,5,11,3,Indiranagar,Apartment,198.8,Rajesh Kumar,9692603408,rajesh.kumar@gmail.com
+4203,1,3,12,3,Indiranagar,Villa,929.66,Rajesh Kumar,9354192129,rajesh.kumar@gmail.com
+4909,5,3,20,0,Whitefield,Villa,757.35,Arjun Reddy,9769922113,arjun.reddy@gmail.com
+1286,1,2,10,2,Koramangala,Apartment,261.2,Arjun Reddy,9018497732,arjun.reddy@gmail.com
+4130,4,4,14,2,HSR Layout,Apartment,723.1,Vikram Singh,9935576830,vikram.singh@gmail.com
+3279,5,3,2,0,Koramangala,Apartment,685.8,Sneha Patil,9515991078,sneha.patil@gmail.com
+717,3,4,2,3,Whitefield,Villa,129.55,Sneha Patil,9225123392,sneha.patil@gmail.com
+2532,2,4,0,1,Indiranagar,Apartment,575.04,Vikram Singh,9933148988,vikram.singh@gmail.com
+2615,4,5,11,1,BTM,Independent House,390.6,Rajesh Kumar,9957735480,rajesh.kumar@gmail.com
+4566,3,5,1,2,Indiranagar,Villa,1029.02,Rajesh Kumar,9086806497,rajesh.kumar@gmail.com
+2712,3,4,7,1,Whitefield,Independent House,426.3,Anil Sharma,9165094204,anil.sharma@gmail.com
+2763,5,3,14,3,Whitefield,Villa,438.45,Rajesh Kumar,9804431847,rajesh.kumar@gmail.com
+3678,3,3,11,1,Indiranagar,Independent House,824.66,Sneha Patil,9544421305,sneha.patil@gmail.com
+1962,2,4,5,0,Electronic City,Apartment,192.08,Anil Sharma,9499594893,anil.sharma@gmail.com
+1225,3,5,10,3,Marathahalli,Villa,167.0,Arjun Reddy,9650600918,arjun.reddy@gmail.com
+3295,5,3,14,2,Whitefield,Villa,518.25,Priya Rao,9291354541,priya.rao@gmail.com
+2603,4,1,9,1,Marathahalli,Independent House,329.86,Priya Rao,9087147127,priya.rao@gmail.com
+1660,3,2,14,1,Yelahanka,Villa,178.0,Meera Joshi,9968255407,meera.joshi@gmail.com
+1980,4,5,12,2,Marathahalli,Villa,261.6,Priya Rao,9198135238,priya.rao@gmail.com
+4830,4,4,14,1,Koramangala,Apartment,987.0,Rajesh Kumar,9928910807,rajesh.kumar@gmail.com
+1899,3,2,18,2,Whitefield,Apartment,294.85,Vikram Singh,9444737746,vikram.singh@gmail.com
+2703,2,4,0,2,Electronic City,Villa,261.27,Rajesh Kumar,9158285680,rajesh.kumar@gmail.com
+1769,2,3,15,1,Marathahalli,Apartment,220.78,Sneha Patil,9297378485,sneha.patil@gmail.com
+1689,1,1,15,2,BTM,Independent House,235.96,Arjun Reddy,9203191048,arjun.reddy@gmail.com
+3917,2,2,9,2,Electronic City,Independent House,362.03,Priya Rao,9656880236,priya.rao@gmail.com
+3297,5,4,15,1,Marathahalli,Villa,421.14,Arjun Reddy,9475464083,arjun.reddy@gmail.com
+4555,2,5,4,1,Whitefield,Villa,701.25,Vikram Singh,9426516423,vikram.singh@gmail.com
+931,3,5,13,0,Indiranagar,Villa,223.32,Anil Sharma,9900603821,anil.sharma@gmail.com
+4530,2,4,15,1,BTM,Villa,644.7,Arjun Reddy,9469501749,arjun.reddy@gmail.com
+3949,5,5,20,3,HSR Layout,Independent House,696.33,Vikram Singh,9645573596,vikram.singh@gmail.com
+4548,2,1,7,2,Whitefield,Apartment,690.7,Arjun Reddy,9441131140,arjun.reddy@gmail.com
+2067,4,2,8,3,BTM,Independent House,309.38,Sneha Patil,9396284268,sneha.patil@gmail.com
+1617,1,1,1,1,Koramangala,Apartment,329.9,Sneha Patil,9070127034,sneha.patil@gmail.com
+3327,4,1,1,0,Yelahanka,Independent House,354.2,Priya Rao,9574665140,priya.rao@gmail.com
+4116,2,1,19,0,Whitefield,Apartment,619.9,Priya Rao,9785833782,priya.rao@gmail.com
+3633,4,3,19,1,Electronic City,Apartment,343.47,Sneha Patil,9559661021,sneha.patil@gmail.com
+3414,3,3,10,0,Yelahanka,Villa,357.4,Rajesh Kumar,9607582878,rajesh.kumar@gmail.com
+1726,1,2,2,3,BTM,Apartment,249.64,Vikram Singh,9886928789,vikram.singh@gmail.com
+3590,3,4,19,1,Electronic City,Apartment,336.6,Anil Sharma,9810449265,anil.sharma@gmail.com
+1196,3,1,17,1,Electronic City,Apartment,116.14,Sneha Patil,9831406956,sneha.patil@gmail.com
+3635,2,5,12,3,Koramangala,Apartment,741.0,Arjun Reddy,9078906142,arjun.reddy@gmail.com
+1848,5,3,11,0,Whitefield,Villa,302.7,Vikram Singh,9979921316,vikram.singh@gmail.com
+1497,3,2,3,2,Indiranagar,Independent House,346.84,Priya Rao,9774379483,priya.rao@gmail.com
+749,5,1,4,2,Whitefield,Apartment,137.35,Arjun Reddy,9686578319,arjun.reddy@gmail.com
+3733,5,4,13,0,Indiranagar,Apartment,847.76,Meera Joshi,9717360405,meera.joshi@gmail.com
+1754,4,4,13,1,Indiranagar,Independent House,407.38,Anil Sharma,9304073801,anil.sharma@gmail.com
+948,4,3,9,3,HSR Layout,Apartment,182.66,Vikram Singh,9049920718,vikram.singh@gmail.com
+4720,2,3,8,1,Koramangala,Apartment,956.0,Arjun Reddy,9188848229,arjun.reddy@gmail.com
+1643,3,4,20,2,Whitefield,Independent House,259.45,Anil Sharma,9486268147,anil.sharma@gmail.com
+2936,3,2,17,0,Marathahalli,Independent House,362.82,Anil Sharma,9792789535,anil.sharma@gmail.com
+1398,1,2,6,2,Yelahanka,Apartment,145.8,Arjun Reddy,9024250767,arjun.reddy@gmail.com
+4295,2,1,5,1,Yelahanka,Villa,439.0,Vikram Singh,9596888981,vikram.singh@gmail.com
+4819,4,4,16,3,Indiranagar,Villa,1080.18,Anil Sharma,9774849784,anil.sharma@gmail.com
+1308,3,4,11,2,Electronic City,Apartment,135.22,Sneha Patil,9557541885,sneha.patil@gmail.com
+2025,2,4,13,3,BTM,Independent House,295.0,Priya Rao,9416725150,priya.rao@gmail.com
+2666,2,4,19,2,Electronic City,Villa,248.44,Sneha Patil,9894184615,sneha.patil@gmail.com
+1663,5,1,16,3,Yelahanka,Villa,185.3,Sneha Patil,9671080828,sneha.patil@gmail.com
+691,1,3,9,0,Electronic City,Apartment,68.69,Vikram Singh,9072167576,vikram.singh@gmail.com
+3697,5,2,12,1,Marathahalli,Villa,466.64,Arjun Reddy,9971124792,arjun.reddy@gmail.com
+852,5,4,5,0,Koramangala,Apartment,200.9,Rajesh Kumar,9017184432,rajesh.kumar@gmail.com
+3346,4,3,1,3,Koramangala,Independent House,694.7,Arjun Reddy,9734799578,arjun.reddy@gmail.com
+3394,5,1,0,2,Koramangala,Independent House,705.8,Vikram Singh,9590140411,vikram.singh@gmail.com
+1288,4,5,2,0,Yelahanka,Villa,157.8,Arjun Reddy,9336324093,arjun.reddy@gmail.com
+1678,5,3,19,3,Electronic City,Villa,172.52,Vikram Singh,9664304897,vikram.singh@gmail.com
+2993,3,2,8,1,Indiranagar,Villa,673.46,Rajesh Kumar,9068760613,rajesh.kumar@gmail.com
+2043,1,5,4,0,BTM,Villa,299.02,Arjun Reddy,9673967107,arjun.reddy@gmail.com
+2191,1,2,10,1,Whitefield,Villa,332.65,Priya Rao,9215499307,priya.rao@gmail.com
+3439,3,2,3,0,Indiranagar,Apartment,774.08,Rajesh Kumar,9777087703,rajesh.kumar@gmail.com
+2073,3,3,2,1,Indiranagar,Apartment,476.06,Arjun Reddy,9108764194,arjun.reddy@gmail.com
+899,2,4,0,1,BTM,Apartment,143.86,Anil Sharma,9818982671,anil.sharma@gmail.com
+619,2,4,9,3,BTM,Villa,100.16,Priya Rao,9067170937,priya.rao@gmail.com
+972,5,4,16,0,HSR Layout,Apartment,190.24,Rajesh Kumar,9621207956,rajesh.kumar@gmail.com
+3224,2,4,1,3,BTM,Apartment,468.86,Meera Joshi,9395191927,meera.joshi@gmail.com
+3009,2,5,14,0,HSR Layout,Villa,524.53,Arjun Reddy,9250653862,arjun.reddy@gmail.com
+2365,4,2,20,3,Indiranagar,Villa,534.3,Meera Joshi,9881595533,meera.joshi@gmail.com
+4604,2,1,15,0,Marathahalli,Apartment,556.98,Sneha Patil,9895740395,sneha.patil@gmail.com
+4206,4,1,12,0,HSR Layout,Independent House,731.02,Rajesh Kumar,9475404521,rajesh.kumar@gmail.com
+4260,4,5,5,3,BTM,Villa,623.9,Priya Rao,9389449718,priya.rao@gmail.com
+1614,1,4,2,3,Indiranagar,Apartment,367.08,Sneha Patil,9672870314,sneha.patil@gmail.com
+4426,1,5,0,3,BTM,Independent House,634.64,Meera Joshi,9578124807,meera.joshi@gmail.com
+4866,2,4,12,0,Indiranagar,Apartment,1082.52,Arjun Reddy,9236260757,arjun.reddy@gmail.com
+3955,5,4,13,3,Indiranagar,Apartment,896.6,Rajesh Kumar,9531134120,rajesh.kumar@gmail.com
+1322,5,3,20,3,Marathahalli,Independent House,179.64,Sneha Patil,9356660000,sneha.patil@gmail.com
+3952,2,5,7,3,BTM,Apartment,569.78,Priya Rao,9904790191,priya.rao@gmail.com
+3570,2,2,9,1,Koramangala,Villa,723.5,Meera Joshi,9053369026,meera.joshi@gmail.com
+4496,4,5,19,0,BTM,Villa,649.94,Meera Joshi,9931452176,meera.joshi@gmail.com
+2081,4,1,10,2,Koramangala,Apartment,433.2,Meera Joshi,9643656560,meera.joshi@gmail.com
+2535,3,3,15,3,Whitefield,Apartment,393.75,Rajesh Kumar,9933185225,rajesh.kumar@gmail.com
+688,1,2,13,2,Koramangala,Apartment,140.1,Sneha Patil,9118832679,sneha.patil@gmail.com
+2121,2,2,14,1,Whitefield,Apartment,325.15,Sneha Patil,9624339410,sneha.patil@gmail.com
+1040,1,4,4,1,HSR Layout,Villa,187.8,Meera Joshi,9055546124,meera.joshi@gmail.com
+3957,1,2,5,2,Whitefield,Apartment,600.05,Rajesh Kumar,9867921540,rajesh.kumar@gmail.com
+1551,2,3,7,0,Indiranagar,Independent House,353.72,Sneha Patil,9689096140,sneha.patil@gmail.com
+2016,3,5,12,1,HSR Layout,Apartment,361.72,Anil Sharma,9565931238,anil.sharma@gmail.com
+2014,5,5,20,3,Yelahanka,Independent House,226.4,Vikram Singh,9531552970,vikram.singh@gmail.com
+3341,2,2,12,0,Yelahanka,Villa,342.1,Arjun Reddy,9425745085,arjun.reddy@gmail.com
+2131,3,4,0,0,Marathahalli,Villa,278.72,Priya Rao,9438543122,priya.rao@gmail.com
+982,4,2,19,0,Electronic City,Independent House,102.88,Arjun Reddy,9338283051,arjun.reddy@gmail.com
+1188,4,1,7,3,Indiranagar,Villa,279.86,Arjun Reddy,9750103774,arjun.reddy@gmail.com
+4144,5,3,10,3,Electronic City,Apartment,398.96,Rajesh Kumar,9598824753,rajesh.kumar@gmail.com
+4899,4,3,6,2,BTM,Apartment,708.86,Meera Joshi,9053680040,meera.joshi@gmail.com
+1283,5,2,18,0,BTM,Apartment,199.62,Rajesh Kumar,9793677416,rajesh.kumar@gmail.com
+4194,5,2,2,2,Marathahalli,Independent House,531.28,Rajesh Kumar,9947702048,rajesh.kumar@gmail.com
+945,3,2,15,2,Indiranagar,Villa,219.4,Meera Joshi,9617921991,meera.joshi@gmail.com
+2299,1,4,6,2,Yelahanka,Apartment,239.9,Arjun Reddy,9598993549,arjun.reddy@gmail.com
+3342,1,3,2,3,Marathahalli,Villa,411.04,Arjun Reddy,9134325639,arjun.reddy@gmail.com
+650,2,1,16,2,Indiranagar,Apartment,147.0,Sneha Patil,9499234303,sneha.patil@gmail.com
+852,4,3,0,0,Yelahanka,Apartment,111.2,Rajesh Kumar,9276198462,rajesh.kumar@gmail.com
+2800,3,3,14,0,Yelahanka,Independent House,294.0,Anil Sharma,9154347292,anil.sharma@gmail.com
+4871,2,2,4,1,Koramangala,Independent House,986.2,Arjun Reddy,9479144959,arjun.reddy@gmail.com
+4169,5,3,14,2,Marathahalli,Apartment,524.28,Vikram Singh,9957652296,vikram.singh@gmail.com
+1740,5,2,3,2,Indiranagar,Apartment,410.3,Rajesh Kumar,9186428091,rajesh.kumar@gmail.com
+947,4,2,18,0,Whitefield,Independent House,157.05,Meera Joshi,9524804477,meera.joshi@gmail.com
+1969,5,1,9,1,HSR Layout,Villa,357.23,Priya Rao,9757368372,priya.rao@gmail.com
+2366,4,5,16,2,Koramangala,Independent House,495.2,Arjun Reddy,9692768298,arjun.reddy@gmail.com
+3961,4,1,18,0,HSR Layout,Villa,686.37,Arjun Reddy,9422696297,arjun.reddy@gmail.com
+3066,5,5,2,1,Whitefield,Independent House,493.9,Vikram Singh,9649782814,vikram.singh@gmail.com
+4655,3,1,9,0,Indiranagar,Independent House,1036.6,Arjun Reddy,9830105210,arjun.reddy@gmail.com
+2441,3,1,5,0,Whitefield,Villa,380.65,Vikram Singh,9391382379,vikram.singh@gmail.com
+4676,1,2,19,0,HSR Layout,Apartment,794.42,Sneha Patil,9135371430,sneha.patil@gmail.com
+3988,4,2,19,2,Marathahalli,Apartment,493.06,Vikram Singh,9991744295,vikram.singh@gmail.com
+4284,5,5,14,0,BTM,Apartment,627.76,Anil Sharma,9253344772,anil.sharma@gmail.com
+1516,3,1,0,3,Electronic City,Apartment,153.44,Anil Sharma,9040457651,anil.sharma@gmail.com
+2819,4,1,20,0,Electronic City,Independent House,265.71,Sneha Patil,9066129151,sneha.patil@gmail.com
+2256,2,2,15,3,Electronic City,Villa,209.54,Priya Rao,9352405433,priya.rao@gmail.com
+4430,3,1,8,1,Marathahalli,Independent House,544.6,Sneha Patil,9384490078,sneha.patil@gmail.com
+1478,3,5,11,2,Indiranagar,Villa,344.66,Vikram Singh,9631855193,vikram.singh@gmail.com
+1909,4,3,12,0,Yelahanka,Independent House,210.9,Meera Joshi,9026225020,meera.joshi@gmail.com
+4396,5,1,9,2,BTM,Villa,637.94,Priya Rao,9098819406,priya.rao@gmail.com
+1148,4,1,18,3,Koramangala,Independent House,242.6,Meera Joshi,9462462376,meera.joshi@gmail.com
+1122,4,1,13,3,Electronic City,Villa,116.48,Anil Sharma,9451584818,anil.sharma@gmail.com
+1332,1,3,8,2,BTM,Villa,193.48,Priya Rao,9891434007,priya.rao@gmail.com
+4963,1,2,9,0,BTM,Apartment,699.32,Arjun Reddy,9458170250,arjun.reddy@gmail.com
+1014,1,2,4,3,BTM,Villa,148.96,Priya Rao,9246266232,priya.rao@gmail.com
+742,2,1,17,3,Marathahalli,Apartment,92.54,Arjun Reddy,9035704614,arjun.reddy@gmail.com
+3928,3,5,18,2,BTM,Villa,565.92,Sneha Patil,9644901775,sneha.patil@gmail.com
+1284,2,4,2,0,Yelahanka,Apartment,145.4,Rajesh Kumar,9854118665,rajesh.kumar@gmail.com
+2700,5,1,14,0,Indiranagar,Apartment,614.0,Arjun Reddy,9206833785,arjun.reddy@gmail.com
+4023,3,2,12,0,HSR Layout,Independent House,696.91,Anil Sharma,9243504000,anil.sharma@gmail.com
+2248,5,3,19,2,Whitefield,Independent House,358.7,Priya Rao,9535312619,priya.rao@gmail.com
+914,5,2,13,1,Koramangala,Villa,205.3,Anil Sharma,9337805371,anil.sharma@gmail.com
+717,2,1,4,0,Koramangala,Villa,153.4,Sneha Patil,9609371245,sneha.patil@gmail.com
+1149,4,4,3,0,Indiranagar,Apartment,279.28,Priya Rao,9971393516,priya.rao@gmail.com
+3119,4,2,13,2,HSR Layout,Apartment,547.73,Arjun Reddy,9872624890,arjun.reddy@gmail.com
+4349,5,3,5,0,Marathahalli,Independent House,550.38,Meera Joshi,9903555447,meera.joshi@gmail.com
+723,4,4,14,0,Indiranagar,Villa,180.06,Meera Joshi,9845134775,meera.joshi@gmail.com
+2259,4,2,9,2,HSR Layout,Villa,403.53,Meera Joshi,9433156841,meera.joshi@gmail.com
+2571,4,3,20,0,BTM,Independent House,375.94,Rajesh Kumar,9451900074,rajesh.kumar@gmail.com
+4195,4,1,6,1,Indiranagar,Independent House,941.9,Sneha Patil,9241525372,sneha.patil@gmail.com
+874,1,4,10,1,Marathahalli,Independent House,112.88,Meera Joshi,9516468871,meera.joshi@gmail.com
+2145,1,5,7,0,Indiranagar,Independent House,483.4,Arjun Reddy,9743345754,arjun.reddy@gmail.com
+1760,5,1,16,1,Koramangala,Independent House,371.0,Arjun Reddy,9881407108,arjun.reddy@gmail.com
+1292,1,1,3,1,Yelahanka,Independent House,134.7,Sneha Patil,9094726271,sneha.patil@gmail.com
+3831,4,2,13,0,Marathahalli,Villa,477.22,Meera Joshi,9914465174,meera.joshi@gmail.com
+2152,4,2,2,3,Yelahanka,Villa,238.2,Arjun Reddy,9222879811,arjun.reddy@gmail.com
+2005,3,5,11,0,Indiranagar,Independent House,460.6,Meera Joshi,9849210267,meera.joshi@gmail.com
+2995,2,2,12,0,Whitefield,Independent House,457.25,Arjun Reddy,9184533047,arjun.reddy@gmail.com
+1773,5,2,0,1,HSR Layout,Independent House,330.41,Anil Sharma,9864071718,anil.sharma@gmail.com
+2657,4,1,0,1,BTM,Independent House,393.98,Vikram Singh,9321305566,vikram.singh@gmail.com
+2140,4,3,2,0,Electronic City,Independent House,217.6,Vikram Singh,9468667159,vikram.singh@gmail.com
+1358,1,1,6,1,BTM,Villa,194.12,Arjun Reddy,9816263315,arjun.reddy@gmail.com
+1455,3,1,3,3,Whitefield,Independent House,233.75,Arjun Reddy,9898529212,arjun.reddy@gmail.com
+2661,2,5,6,3,HSR Layout,Independent House,469.37,Vikram Singh,9905212665,vikram.singh@gmail.com
+3428,4,1,2,1,Yelahanka,Villa,363.8,Meera Joshi,9366426355,meera.joshi@gmail.com
+2934,1,2,14,0,HSR Layout,Villa,500.78,Sneha Patil,9429031164,sneha.patil@gmail.com
+3885,4,3,14,2,BTM,Villa,562.9,Meera Joshi,9965071869,meera.joshi@gmail.com
+679,5,1,6,1,HSR Layout,Independent House,139.43,Anil Sharma,9885890240,anil.sharma@gmail.com
+4665,3,2,14,2,Yelahanka,Villa,478.5,Arjun Reddy,9975787916,arjun.reddy@gmail.com
+1457,1,5,9,0,Indiranagar,Independent House,331.04,Meera Joshi,9761890026,meera.joshi@gmail.com
+1424,4,3,3,3,Indiranagar,Apartment,337.78,Sneha Patil,9158859182,sneha.patil@gmail.com

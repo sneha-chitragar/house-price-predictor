@@ -5,10 +5,12 @@ import random
 locations = [
     "BTM",
     "Indiranagar",
-    "Yelahanka",
     "Whitefield",
     "Koramangala",
-    "Electronic City"
+    "Yelahanka",
+    "Electronic City",
+    "Marathahalli",
+    "HSR Layout"
 ]
 
 
@@ -19,109 +21,135 @@ property_types = [
 ]
 
 
+owner_names = [
+    "Rajesh Kumar",
+    "Anil Sharma",
+    "Priya Rao",
+    "Sneha Patil",
+    "Vikram Singh",
+    "Meera Joshi"
+]
+
+
 data = []
 
 
-for i in range(1000):
+for i in range(5000):
 
-    area = random.randint(500, 5000)
+    area = random.randint(500,5000)
 
-    bedrooms = random.randint(1, 5)
+    bedrooms = random.randint(1,5)
 
-    bathrooms = random.randint(1, 5)
+    bathrooms = random.randint(1,5)
 
-    location = random.choice(
-        locations
-    )
+    property_age = random.randint(0,25)
 
-    property_age = random.randint(
-        0,
-        30
-    )
-
-    parking = random.randint(
-        0,
-        2
-    )
-
-    property_type = random.choice(
-        property_types
-    )
+    parking = random.randint(0,3)
 
 
-    # Location price factor
+    location = random.choice(locations)
 
-    location_factor = {
+    property_type = random.choice(property_types)
 
-        "BTM": 8000,
 
-        "Indiranagar": 15000,
 
-        "Yelahanka": 9000,
+    location_rate = {
 
-        "Whitefield": 12000,
-
-        "Koramangala": 18000,
-
-        "Electronic City": 7000
+        "Indiranagar":22000,
+        "Koramangala":20000,
+        "HSR Layout":17000,
+        "Whitefield":15000,
+        "BTM":14000,
+        "Marathahalli":12000,
+        "Yelahanka":10000,
+        "Electronic City":9000
 
     }
 
 
     price = (
-            area * location_factor[location]
-    + bedrooms * 800000
-    + bathrooms * 500000
-    + parking * 300000
-    - property_age * 100000
+
+        area * location_rate[location]
+
+        +
+        bedrooms*500000
+
+        +
+        bathrooms*200000
+
+        -
+        property_age*50000
+
     )
 
 
-    # Property type impact
-
-    if property_type == "Villa":
-        price += 3000000
-
-    elif property_type == "Independent House":
-        price += 2000000
+    owner=random.choice(owner_names)
 
 
-    data.append(
-        [
-            area,
-            bedrooms,
-            location,
-            bathrooms,
-            property_age,
-            parking,
-            property_type,
-            price
-        ]
+    phone="9"+str(
+        random.randint(
+            100000000,
+            999999999
+        )
     )
 
 
+    email=(
+        owner.lower()
+        .replace(" ",".")
+        +"@gmail.com"
+    )
 
-df = pd.DataFrame(
-    data,
-    columns=[
-        "area",
-        "bedrooms",
-        "location",
-        "bathrooms",
-        "property_age",
-        "parking",
-        "property_type",
-        "price"
-    ]
+
+    data.append([
+
+        area,
+        bedrooms,
+        bathrooms,
+        property_age,
+        parking,
+        location,
+        property_type,
+        round(price/100000,2),
+        owner,
+        phone,
+        email
+
+    ])
+
+
+
+df=pd.DataFrame(
+
+data,
+
+columns=[
+
+"area",
+"bedrooms",
+"bathrooms",
+"property_age",
+"parking",
+"location",
+"property_type",
+"price",
+"owner_name",
+"owner_phone",
+"owner_email"
+
+]
+
 )
 
 
 df.to_csv(
-    "housing_data.csv",
-    index=False
+
+"housing_data.csv",
+
+index=False
+
 )
 
 
-print(
-    "New property dataset created successfully"
-)
+print("Dataset created")
+print(df.head())
