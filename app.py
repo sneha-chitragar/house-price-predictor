@@ -2,10 +2,11 @@ import streamlit as st
 import pandas as pd
 import joblib
 import json
-import matplotlib.pyplot as plt
+import plotly.express as px
 
 
-# Page settings
+# ---------------- PAGE CONFIG ----------------
+
 st.set_page_config(
     page_title="Bangalore Property Price Predictor",
     page_icon="🏠",
@@ -13,53 +14,67 @@ st.set_page_config(
 )
 
 
-# Remove number input arrows
-st.markdown(
-"""
-<style>
+# ---------------- LOAD FILES ----------------
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-</style>
-""",
-unsafe_allow_html=True
-)
+@st.cache_resource
+def load_model():
+    return joblib.load("model_pipeline.pkl")
 
 
+@st.cache_data
+def load_housing_data():
 
-# Load model
+    df = pd.read_csv("housing_data.csv")
 
-model = joblib.load(
-    "model_pipeline.pkl"
-)
+    df.columns = df.columns.str.strip()
+
+    df["location"] = (
+        df["location"]
+        .astype(str)
+        .str.strip()
+    )
+
+    return df
 
 
 
-# Load dataset
+@st.cache_data
+def load_location_scores():
 
-df = pd.read_csv(
-    "housing_data.csv"
-)
+    score_df = pd.read_csv(
+        "location_scores.csv"
+    )
+
+    score_df.columns = (
+        score_df.columns
+        .str.strip()
+    )
+
+    score_df["location_key"] = (
+        score_df["location"]
+        .astype(str)
+        .str.strip()
+        .str.lower()
+    )
+
+    return score_df
 
 
-df.columns = df.columns.str.strip()
+
+model = load_model()
+
+df = load_housing_data()
+
+score_df = load_location_scores()
 
 
 
-# Load metrics
+# ---------------- METRICS ----------------
 
 try:
 
-    with open(
-        "metrics.json",
-        "r"
-    ) as file:
-
-        metrics=json.load(file)
+    with open("metrics.json","r") as f:
+        metrics=json.load(f)
 
 except:
 
@@ -67,54 +82,50 @@ except:
 
 
 
+# ---------------- HEADER ----------------
 
-# Title
 
-st.title(
-    "🏠 Bangalore Property Price Predictor"
+st.markdown(
+"""
+<h1 style='text-align:center'>
+🏠 Bangalore Property Price Predictor
+</h1>
+
+<p style='text-align:center'>
+AI based Property Price Prediction + Location Analytics
+</p>
+""",
+unsafe_allow_html=True
 )
 
 
-st.write(
-    "Machine Learning based property price prediction"
-)
 
-
-
-# Sidebar model information
+# ---------------- SIDEBAR ----------------
 
 with st.sidebar:
 
-    st.header(
-        "🤖 Model Information"
+    st.header("🤖 Model Information")
+
+    st.metric(
+        "Model",
+        metrics.get(
+            "model",
+            "RandomForest"
+        )
+    )
+
+    st.metric(
+        "R2 Score",
+        metrics.get(
+            "r2_score",
+            "N/A"
+        )
     )
 
 
-    if metrics:
 
-        st.write(
-            "Model:",
-            metrics.get("model")
-        )
+# ---------------- INPUT ----------------
 
-        st.write(
-            "R2 Score:",
-            metrics.get("r2_score")
-        )
-
-        st.write(
-            "MAE:",
-            metrics.get("mae")
-        )
-
-        st.write(
-            "RMSE:",
-            metrics.get("rmse")
-        )
-
-
-
-# Dynamic values from dataset
 
 locations = sorted(
     df["location"]
@@ -131,352 +142,349 @@ property_types = sorted(
 
 
 
-
-# Layout
-
-input_col, graph_col = st.columns(
-    [1,1]
-)
+col1,col2 = st.columns(2)
 
 
 
-# Input section
-
-with input_col:
-
+with col1:
 
     st.subheader(
-        "📋 Enter Property Details"
+        "📋 Property Details"
     )
 
 
     area = st.number_input(
-
-        "Area (sq ft)",
-
-        value=int(
-            df["area"].mean()
-        ),
-
-        step=100
-
+        "Area Sq Ft",
+        300,
+        5000,
+        1200
     )
 
 
-
-    bedrooms = st.number_input(
-
+    bedrooms = st.slider(
         "Bedrooms",
-
-        value=int(
-            df["bedrooms"].mean()
-        ),
-
-        step=1
-
-    )
-
-
-
-    bathrooms = st.number_input(
-
-        "Bathrooms",
-
-        value=int(
-            df["bathrooms"].mean()
-        ),
-
-        step=1
-
-    )
-
-
-
-    property_age = st.number_input(
-
-        "Property Age",
-
-        value=int(
-            df["property_age"].mean()
-        ),
-
-        step=1
-
-    )
-
-
-
-    parking = st.number_input(
-
-        "Parking",
-
-        value=int(
-            df["parking"].mean()
-        ),
-
-        step=1
-
-    )
-
-
-
-    location = st.selectbox(
-
-        "Location",
-
-        locations
-
-    )
-
-
-
-    property_type = st.selectbox(
-
-        "Property Type",
-
-        property_types
-
-    )
-
-
-
-
-
-# Graph section
-
-with graph_col:
-
-
-    st.subheader(
-        "📊 Property Analysis"
-    )
-
-
-    chart_df = pd.DataFrame(
-
-        {
-
-        "Feature":
-
-        [
-
-            "Area",
-            "Bedrooms",
-            "Bathrooms",
-            "Age",
-            "Parking"
-
-        ],
-
-
-        "Value":
-
-        [
-
-            area,
-            bedrooms,
-            bathrooms,
-            property_age,
-            parking
-
-        ]
-
-        }
-
-    )
-
-
-    fig, ax = plt.subplots(
-        figsize=(5,3)
-    )
-
-
-    ax.bar(
-
-        chart_df["Feature"],
-
-        chart_df["Value"]
-
-    )
-
-
-    ax.set_ylabel(
-        "Value"
-    )
-
-
-    plt.xticks(
-        rotation=45
-    )
-
-
-    plt.tight_layout()
-
-
-    st.pyplot(fig)
-
-
-
-
-# Prediction button
-
-if st.button(
-    "🔮 Predict Price"
-):
-
-
-    input_data = pd.DataFrame(
-
-        {
-
-        "area":[area],
-
-        "bedrooms":[bedrooms],
-
-        "bathrooms":[bathrooms],
-
-        "property_age":[property_age],
-
-        "parking":[parking],
-
-        "location":[location],
-
-        "property_type":[property_type]
-
-        }
-
-    )
-
-
-    prediction = model.predict(
-        input_data
-    )
-
-
-    price = round(
-        prediction[0],
+        1,
+        10,
         2
     )
 
 
-    st.success(
+    bathrooms = st.slider(
+        "Bathrooms",
+        1,
+        10,
+        2
+    )
 
-        f"💰 Estimated Price: ₹ {price} Lakhs"
 
+    property_age = st.slider(
+        "Property Age",
+        0,
+        50,
+        5
+    )
+
+
+    parking = st.slider(
+        "Parking",
+        0,
+        5,
+        1
+    )
+
+
+    location = st.selectbox(
+        "📍 Location",
+        locations
+    )
+
+
+    property_type = st.selectbox(
+        "🏢 Property Type",
+        property_types
+    )
+
+
+    predict_btn = st.button(
+        "🔮 Predict Price"
     )
 
 
 
-    # Filter properties
 
-    similar = df[
+with col2:
 
-        (df["location"]==location)
+    st.subheader(
+        "📊 Property Visualization"
+    )
 
-        &
 
-        (df["property_type"]==property_type)
+    chart=pd.DataFrame(
+        {
+            "Feature":
+            [
+                "Area",
+                "Bedrooms",
+                "Bathrooms",
+                "Age",
+                "Parking"
+            ],
 
+            "Value":
+            [
+                area,
+                bedrooms,
+                bathrooms,
+                property_age,
+                parking
+            ]
+        }
+    )
+
+
+    fig=px.bar(
+        chart,
+        x="Feature",
+        y="Value"
+    )
+
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
+
+
+# ---------------- PREDICTION ----------------
+
+
+if predict_btn:
+
+
+    input_data=pd.DataFrame(
+        {
+        "area":[area],
+        "bedrooms":[bedrooms],
+        "bathrooms":[bathrooms],
+        "property_age":[property_age],
+        "parking":[parking],
+        "location":[location],
+        "property_type":[property_type]
+        }
+    )
+
+
+    try:
+
+        price=model.predict(
+            input_data
+        )[0]
+
+
+        st.success(
+            f"💰 Estimated Price ₹ {round(price,2)} Lakhs"
+        )
+
+
+    except Exception as e:
+
+        st.error(e)
+
+
+
+
+    # ---------------- LOCATION SCORE ----------------
+
+
+    st.subheader(
+        "📍 Location Intelligence"
+    )
+
+
+    selected_key = (
+        location
+        .strip()
+        .lower()
+    )
+
+
+    location_result = score_df[
+        score_df["location_key"]
+        ==
+        selected_key
     ]
 
 
 
-    tab1, tab2 = st.tabs(
+    if len(location_result)>0:
 
+
+        row = location_result.iloc[0]
+
+
+        connectivity = row["connectivity_score"]
+
+        schools = row["school_score"]
+
+        metro = row["metro_score"]
+
+        hospitals = row["hospital_score"]
+
+
+
+        a,b,c,d = st.columns(4)
+
+
+        with a:
+
+            st.metric(
+                "🚗 Connectivity",
+                f"{connectivity}/10"
+            )
+
+
+        with b:
+
+            st.metric(
+                "🏫 Schools",
+                f"{schools}/10"
+            )
+
+
+        with c:
+
+            st.metric(
+                "🚇 Metro",
+                f"{metro}/10"
+            )
+
+
+        with d:
+
+            st.metric(
+                "🏥 Hospitals",
+                f"{hospitals}/10"
+            )
+
+
+
+        graph=pd.DataFrame(
+            {
+            "Category":
+            [
+                "Connectivity",
+                "Schools",
+                "Metro",
+                "Hospitals"
+            ],
+
+            "Score":
+            [
+                connectivity,
+                schools,
+                metro,
+                hospitals
+            ]
+            }
+        )
+
+
+        fig_score=px.bar(
+            graph,
+            x="Category",
+            y="Score",
+            text="Score",
+            title=f"{location} Location Score"
+        )
+
+
+        st.plotly_chart(
+            fig_score,
+            use_container_width=True
+        )
+
+
+    else:
+
+
+        st.warning(
+            f"No location score available for {location}"
+        )
+
+
+
+    # ---------------- SIMILAR PROPERTY ----------------
+
+
+    tab1,tab2=st.tabs(
         [
-
-        "🏘 Similar Properties",
-
-        "👤 Owner Details"
-
+            "🏘 Similar Properties",
+            "👤 Owner Details"
         ]
-
     )
+
+
+    similar=df[
+        (df["location"]==location)
+        &
+        (df["property_type"]==property_type)
+    ]
 
 
 
     with tab1:
 
 
-        st.subheader(
-            "Similar Properties"
-        )
-
-
         if len(similar)>0:
 
-
-            display_columns = [
-
-                col for col in similar.columns
-
-                if "owner" not in col.lower()
-
-                and "phone" not in col.lower()
-
-                and "email" not in col.lower()
-
-            ]
-
-
             st.dataframe(
-
-                similar[display_columns]
-                .head(10),
-
+                similar.head(10),
                 use_container_width=True
-
             )
-
 
         else:
 
             st.info(
-                "No matching properties found"
+                "No similar properties found"
             )
-
-
 
 
 
     with tab2:
 
 
-        st.subheader(
-            "Owner Details"
-        )
-
-
         if len(similar)>0:
 
 
-            owner = similar.sample(
-                1
-            ).iloc[0]
+            owner=similar.iloc[0]
 
 
-            if "owner_name" in df.columns:
-
-                st.write(
-                    "👤 Name:",
-                    owner["owner_name"]
+            st.write(
+                "👤",
+                owner.get(
+                    "owner_name",
+                    "Not Available"
                 )
+            )
 
 
-            if "owner_phone" in df.columns:
-
-                st.write(
-                    "📞 Phone:",
-                    owner["owner_phone"]
+            st.write(
+                "📞",
+                owner.get(
+                    "owner_phone",
+                    "Not Available"
                 )
+            )
 
 
-            if "owner_email" in df.columns:
-
-                st.write(
-                    "📧 Email:",
-                    owner["owner_email"]
+            st.write(
+                "📧",
+                owner.get(
+                    "owner_email",
+                    "Not Available"
                 )
+            )
 
 
         else:

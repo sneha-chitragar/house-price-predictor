@@ -1,22 +1,21 @@
-# Property Price Prediction Using Machine Learning
+# 🏡 Smart Property Price Predictor
 
-## Project Overview
-This project predicts property prices using Machine Learning.
-
-## Technology Used
-- Python
-- Pandas
-- Scikit-learn
-- Random Forest Regression
-- Streamlit
+A professional real estate dashboard built using Streamlit.
 
 ## Features
-- Area
-- Bedrooms
-- Location Score
 
-## Model
-Random Forest Regressor
+- Property price prediction (ML model)
+- Price vs Area comparison
+- Market trend visualization
+- Locality insights
+- ROI projection
+- Rental yield calculator
+- Price breakdown
+- Map visualization
 
-## Deployment
-Streamlit Cloud
+## Run Locally
+
+```bash
+pip install -r requirements.txt
+python train_model.py
+streamlit run app.py
