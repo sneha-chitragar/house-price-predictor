@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import joblib
 import json
 
@@ -6,7 +7,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
-
 from sklearn.ensemble import RandomForestRegressor
 
 from sklearn.metrics import (
@@ -23,37 +23,51 @@ print("Training started...")
 df = pd.read_csv("housing_data.csv")
 
 
-# Remove empty values
-df = df.dropna()
+# Clean column names
+df.columns = df.columns.str.strip()
 
 
-# Separate features and target
+print("Dataset columns:")
+print(df.columns)
+
+
+
+# Features and target
 
 X = df.drop(
     "price",
     axis=1
 )
 
+
 y = df["price"]
 
 
 
-# Detect categorical columns
-categorical_columns = X.select_dtypes(
-    include=["object", "string"]
-).columns.tolist()
+# Column types
+
+categorical_columns = [
+    "location",
+    "property_type"
+]
 
 
-numeric_columns = X.select_dtypes(
-    exclude=["object"]
-).columns.tolist()
+numeric_columns = [
+    "area",
+    "bedrooms",
+    "bathrooms",
+    "property_age",
+    "parking"
+]
 
 
 
 # Preprocessing
 
 preprocessor = ColumnTransformer(
+
     transformers=[
+
         (
             "categorical",
             OneHotEncoder(
@@ -61,8 +75,11 @@ preprocessor = ColumnTransformer(
             ),
             categorical_columns
         )
+
     ],
+
     remainder="passthrough"
+
 )
 
 
@@ -70,8 +87,11 @@ preprocessor = ColumnTransformer(
 # Model
 
 model = RandomForestRegressor(
+
     n_estimators=200,
+
     random_state=42
+
 )
 
 
@@ -79,16 +99,21 @@ model = RandomForestRegressor(
 # Pipeline
 
 pipeline = Pipeline(
+
     steps=[
+
         (
             "preprocessor",
             preprocessor
         ),
+
         (
             "model",
             model
         )
+
     ]
+
 )
 
 
@@ -96,10 +121,15 @@ pipeline = Pipeline(
 # Split data
 
 X_train, X_test, y_train, y_test = train_test_split(
+
     X,
+
     y,
+
     test_size=0.2,
+
     random_state=42
+
 )
 
 
@@ -107,8 +137,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Train
 
 pipeline.fit(
+
     X_train,
+
     y_train
+
 )
 
 
@@ -116,7 +149,9 @@ pipeline.fit(
 # Prediction
 
 y_pred = pipeline.predict(
+
     X_test
+
 )
 
 
@@ -125,8 +160,10 @@ y_pred = pipeline.predict(
 
 metrics = {
 
+
     "model":
     "RandomForestRegressor",
+
 
     "r2_score":
     round(
@@ -137,6 +174,7 @@ metrics = {
         3
     ),
 
+
     "mae":
     round(
         mean_absolute_error(
@@ -146,25 +184,34 @@ metrics = {
         2
     ),
 
-  "rmse":
-round(
-    mean_squared_error(
-        y_test,
-        y_pred
-    ) ** 0.5,
-    
 
+    "rmse":
+    round(
+        np.sqrt(
+            mean_squared_error(
+                y_test,
+                y_pred
+            )
+        ),
         2
     )
+
 }
 
 
 
-# Save complete pipeline
+print(metrics)
+
+
+
+# Save model
 
 joblib.dump(
+
     pipeline,
+
     "model_pipeline.pkl"
+
 )
 
 
@@ -172,19 +219,25 @@ joblib.dump(
 # Save metrics
 
 with open(
+
     "metrics.json",
+
     "w"
-) as file:
+
+) as f:
 
     json.dump(
+
         metrics,
-        file,
+
+        f,
+
         indent=4
+
     )
 
 
 
 print("Training completed successfully")
-print(metrics)
-print("Created: model_pipeline.pkl")
-print("Created: metrics.json")
+print("Created model_pipeline.pkl")
+print("Created metrics.json")
