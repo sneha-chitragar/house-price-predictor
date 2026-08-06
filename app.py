@@ -1,130 +1,68 @@
-import streamlit as st
-import pandas as pd
-import joblib
-import json
+predicted_price = int(prediction[0])
 
-
-
-st.set_page_config(
-page_title="Property Price Predictor",
-layout="wide"
+st.success(
+    f"💰 Estimated Property Price: ₹ {predicted_price:,}"
 )
 
 
+# -----------------------------
+# NEW GRAPH (INPUT + PREDICTION)
+# -----------------------------
 
-model = joblib.load(
-"model_pipeline.pkl"
-)
-
-
-
-df = pd.read_csv(
-"housing_data.csv"
-)
+st.subheader("📊 Property Details Visualization")
 
 
-
-with open(
-"metrics.json"
-) as f:
-    metrics=json.load(f)
+numeric_features = []
+numeric_values = []
 
 
+for key, value in input_data.items():
 
-st.title(
-"🏠 Property Price Predictor"
-)
+    try:
+        val = float(value)
 
-
-
-st.sidebar.header(
-"Model Information"
-)
-
-
-
-st.sidebar.write(
-"Model:",
-metrics["model"]
-)
-
-
-st.sidebar.write(
-"R2 Score:",
-metrics["r2_score"]
-)
-
-
-st.sidebar.write(
-"MAE:",
-metrics["mae"]
-)
-
-
-st.sidebar.write(
-"RMSE:",
-metrics["rmse"]
-)
-
-
-
-st.subheader(
-"Enter Property Details"
-)
-
-
-
-input_data={}
-
-
-
-for column in df.drop(
-"price",
-axis=1
-).columns:
-
-
-    if df[column].dtype=="object":
-
-        input_data[column]=st.selectbox(
-            column,
-            sorted(
-                df[column]
-                .dropna()
-                .unique()
-            )
+        numeric_features.append(
+            key.replace("_", " ").title()
         )
 
+        numeric_values.append(val)
 
-    else:
-
-        input_data[column]=st.number_input(
-            column,
-            float(
-                df[column].min()
-            ),
-            float(
-                df[column].max()
-            )
-        )
+    except:
+        pass  # ignore text values like location
 
 
+# Add predicted price
+numeric_features.append("Predicted Price")
+numeric_values.append(predicted_price)
 
-input_df=pd.DataFrame(
-[input_data]
+
+chart_df = pd.DataFrame({
+    "Feature": numeric_features,
+    "Value": numeric_values
+})
+
+
+# (Optional Debug - remove later)
+# st.write(chart_df)
+
+
+fig, ax = plt.subplots(figsize=(6,3))
+
+
+ax.bar(
+    chart_df["Feature"],
+    chart_df["Value"]
 )
 
 
-
-if st.button(
-"Predict Price"
-):
-
-    result=model.predict(
-        input_df
-    )
+ax.set_ylabel("Value")
+ax.set_title("Input Features + Prediction")
 
 
-    st.success(
-        f"Estimated Price: ₹ {result[0]:,.2f}"
-    )
+plt.xticks(rotation=45, ha="right")
+
+
+plt.tight_layout()
+
+
+st.pyplot(fig, use_container_width=False)

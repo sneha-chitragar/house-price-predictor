@@ -1,46 +1,127 @@
 import pandas as pd
-import numpy as np
+import random
 
-np.random.seed(42)
 
-# Real Bangalore pricing (₹ per sq.ft converted to Lakhs approx)
-location_price_factor = {
-    "Indiranagar": 0.12,
-    "Whitefield": 0.09,
-    "HSR Layout": 0.11,
-    "BTM": 0.08,
-    "Electronic City": 0.07,
-    "Marathahalli": 0.085,
-    "Hebbal": 0.10,
-    "Yelahanka": 0.065,
-    "Kengeri": 0.06,
-    "Bannerghatta": 0.075
-}
+locations = [
+    "BTM",
+    "Indiranagar",
+    "Yelahanka",
+    "Whitefield",
+    "Koramangala",
+    "Electronic City"
+]
 
-rows = []
 
-for _ in range(1200):
-    area = np.random.randint(500, 5000)
-    bedrooms = np.random.randint(1, 6)
-    location = np.random.choice(list(location_price_factor.keys()))
+property_types = [
+    "Apartment",
+    "Villa",
+    "Independent House"
+]
 
-    base_price = area * location_price_factor[location]
 
-    price = (
-        base_price +
-        bedrooms * 8 +
-        np.random.randint(-10, 10)
+data = []
+
+
+for i in range(1000):
+
+    area = random.randint(500, 5000)
+
+    bedrooms = random.randint(1, 5)
+
+    bathrooms = random.randint(1, 5)
+
+    location = random.choice(
+        locations
     )
 
-    rows.append([area, bedrooms, location, round(price, 2)])
+    property_age = random.randint(
+        0,
+        30
+    )
 
-df = pd.DataFrame(rows, columns=[
-    "area",
-    "bedrooms",
-    "location",
-    "price"
-])
+    parking = random.randint(
+        0,
+        2
+    )
 
-df.to_csv("housing.csv", index=False)
+    property_type = random.choice(
+        property_types
+    )
 
-print("✅ Realistic Bangalore dataset created")
+
+    # Location price factor
+
+    location_factor = {
+
+        "BTM": 8000,
+
+        "Indiranagar": 15000,
+
+        "Yelahanka": 9000,
+
+        "Whitefield": 12000,
+
+        "Koramangala": 18000,
+
+        "Electronic City": 7000
+
+    }
+
+
+    price = (
+            area * location_factor[location]
+    + bedrooms * 800000
+    + bathrooms * 500000
+    + parking * 300000
+    - property_age * 100000
+    )
+
+
+    # Property type impact
+
+    if property_type == "Villa":
+        price += 3000000
+
+    elif property_type == "Independent House":
+        price += 2000000
+
+
+    data.append(
+        [
+            area,
+            bedrooms,
+            location,
+            bathrooms,
+            property_age,
+            parking,
+            property_type,
+            price
+        ]
+    )
+
+
+
+df = pd.DataFrame(
+    data,
+    columns=[
+        "area",
+        "bedrooms",
+        "location",
+        "bathrooms",
+        "property_age",
+        "parking",
+        "property_type",
+        "price"
+    ]
+)
+
+
+df.to_csv(
+    "housing_data.csv",
+    index=False
+)
+
+
+print(
+    "New property dataset created successfully"
+)
