@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import joblib
 import json
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
-
+import plotly.express as px
 # Page settings
 st.set_page_config(
     page_title="Bangalore Property Price Predictor",
