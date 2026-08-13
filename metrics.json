@@ -1,6 +1,16 @@
 {
     "model": "RandomForestRegressor",
-    "r2_score": 0.994,
-    "mae": 13.93,
-    "rmse": 18.71
+    "r2_score": 0.999,
+    "mae": 5.17,
+    "rmse": 6.51,
+    "rows": 5000,
+    "features": [
+        "area",
+        "bedrooms",
+        "bathrooms",
+        "property_age",
+        "parking",
+        "location",
+        "property_type"
+    ]
 }
