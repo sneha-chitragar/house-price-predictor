@@ -1,10 +1,7 @@
 streamlit
 pandas
 numpy
-<<<<<<< HEAD
-scikit-learn
-joblib
+scikit-learn==1.6.1
+joblib==1.4.2
 matplotlib
-=======
 plotly
->>>>>>> 03e2946 (remove matplotlib fix)
